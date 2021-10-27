@@ -1,7 +1,8 @@
 /* Styles for the Welcome React component */
 .header{
-    margin-top: 13%;
-    text-align:center;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  text-align:center;
 }
 
 

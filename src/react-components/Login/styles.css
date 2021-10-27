@@ -1,1 +1,21 @@
-/* // Haifeng is working on it. */
+.Title{
+    margin-top: 100px;
+    margin-bottom: 40px;
+    text-align:center;
+}
+
+.login__content {
+    max-width: 600px;
+    padding: 40px 40px;
+    text-align: center;
+    margin: 0 auto;
+}
+.login__button {
+    width: 200px;
+    height: 60px;
+    
+}
+
+.MuiButton-root.login__button {
+    background-color: transparent;
+  }
