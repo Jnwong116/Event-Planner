@@ -8,6 +8,7 @@ class UserInfoForm extends React.Component {
             name,
             userName,
             password,
+            passwordConfirm,
             email,
             birthday,
             handleChange
@@ -33,6 +34,12 @@ class UserInfoForm extends React.Component {
                 type="text"
                 name="password"
                 placeholder="Enter Password" />
+                <input
+                value={passwordConfirm}
+                onChange={handleChange}
+                type="text"
+                name="passwordConfirm"
+                placeholder="Confirm your Password" />
                 <input
                 value={email}
                 onChange={handleChange}
