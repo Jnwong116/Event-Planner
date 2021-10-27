@@ -2,11 +2,6 @@
 .input {
     width: 280px;
   }
-  
-  .input .MuiInput-underline:after {
-    border-color: darkslategray;
-  }
-  
   .input .MuiFormLabel-root,
   .input .MuiFormLabel-root.Mui-focused {
     color: darkslategray;
