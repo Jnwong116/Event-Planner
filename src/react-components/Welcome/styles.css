@@ -1,0 +1,42 @@
+/* Styles for the Welcome React component */
+.header{
+    margin-top: 13%;
+    text-align:center;
+}
+
+
+.button1{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .button2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .button3{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+ 
+  /* Increase specificity to override component styles */
+  .MuiButton-root.button {
+    background-color: transparent;
+    border: 4px darkslategrey solid;
+    border-radius: 0;
+    opacity: 0.6;
+  }
+  .MuiButton-root.button:hover{
+    opacity: 1;
+  }
+  
+  .MuiButton-label {
+    font-size: 1.5em;
+    color: darkslategrey;
+  }

@@ -6,6 +6,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 import Login from './react-components/Login';
+import Welcome from './react-components/Welcome';
 
 class App extends React.Component {
 
@@ -22,6 +23,8 @@ class App extends React.Component {
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path='/' render={() => 
+                            (<Welcome appState={this.state}/>)}/>
+            <Route exact path='/Login' render={() => 
                             (<Login appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>
