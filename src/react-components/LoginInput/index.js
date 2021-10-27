@@ -4,24 +4,26 @@ import Grid from "@material-ui/core/Grid";
 
 import "./styles.css";
 
-/* Component for the Input field, a wrapper around MUI TextField */
-class Input extends React.Component {
+/* Component for the Input field, specifically for login and register. a wrapper around MUI TextField */
+class LoginInput extends React.Component {
   render() {
-    const { label, value, onChange, name } = this.props;
+    const { label, value, onChange, name, type } = this.props;
 
     return (
-      <Grid item xl={3} lg={3} md={4} s={12} xs={12}>
         <TextField
+          required
+          variant = "outlined"
           name={name}
           label={label}
+          id="outlined"
           defaultValue={value || ""}
           className="input"
           margin="normal"
           onChange={onChange}
+          type={type}
         />
-      </Grid>
     );
   }
 }
 
-export default Input;
+export default LoginInput;
