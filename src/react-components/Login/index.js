@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import {loginUser} from "../../actions/login"
 import "./styles.css";
 
 /*TODO: override MUI for better UI*/
@@ -31,7 +32,6 @@ class Login extends React.Component {
         </h1>
         <form
           className="login"
-          method="post"
           onSubmit={this.handleSubmit}
         >
          <TextField
@@ -60,7 +60,7 @@ class Login extends React.Component {
         <br />
         <Button
           onClick={() => {
-            /* TODO: validate. alert if invalid */
+            loginUser(this)
           }}
           className="login__button"
           type="submit"
