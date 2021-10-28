@@ -28,7 +28,7 @@ class Login extends React.Component {
     return (
       <div className="login__content">
         <h1 className="Title">
-          Log In
+          Login
         </h1>
         <form
           className="login"
@@ -63,7 +63,6 @@ class Login extends React.Component {
             loginUser(this)
           }}
           className="login__button"
-          type="submit"
           variant="contained"
         >
           Sign In
@@ -71,7 +70,6 @@ class Login extends React.Component {
         <Link  to={"./../Register"}>
           <Button 
             className="login__button"
-            type="submit"
             variant="contained"
           > Register </Button>
         </Link> 
