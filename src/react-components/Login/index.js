@@ -4,10 +4,8 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import {loginUser, validateLoginForm} from "../../actions/login"
 import "./styles.css";
-
 /*TODO: override MUI for better UI*/
 /* Component for the Login page */
-
 class Login extends React.Component {
   state = {
     username: "",
@@ -59,7 +57,12 @@ class Login extends React.Component {
         <br />
         <Button
           onClick={() => {
-            loginUser(this)
+            if (loginUser(this) === 1){
+              window.location.href='/home'
+            }
+            if (loginUser(this) === 2){
+              window.location.href='/adminEventPanel'
+            }
           }}
           className="login__button"
           variant="contained"
