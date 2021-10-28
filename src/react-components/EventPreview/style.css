@@ -1,12 +1,10 @@
 .preview {
     height: 150px;
     width: 350px;
-    background-color: purple;
     position: relative;
 }
 
 .title {
-    background-color: grey;
     width: 340px;
     position: absolute;
     bottom: 0px;
@@ -14,5 +12,5 @@
     padding: 5px;
     text-align: center;
     opacity: 70%;
-    color: white;
+    background-color: grey;
 }

@@ -6,13 +6,18 @@ class EventPreview extends React.Component {
     render() {
         const {
             name,
-            thumbnail
+            backgroundColor
         } = this.props;
 
         return(
-            <div class="preview">
+            <div class="preview"
+                style={{
+                    backgroundColor: this.props.backgroundColor
+                }}>
                 <div class="title">{name}</div>
             </div>
         )
     }
 }
+
+export default EventPreview;
