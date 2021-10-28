@@ -1,14 +1,13 @@
-// TODO: what is queue
+
 const log = console.log;
-export const loginUser = queue => {
+export const loginUser = form => {
     log("logging in");
     const user = {
-        username: queue.state.username,
-        password: queue.state.password
+        username: form.state.username,
+        password: form.state.password
     }
     if (user.username === "user" && user.password === "user"){
-        // login to user page.
-        // TODO: set state
+
         log("is user");
         return 1;
     }
@@ -22,3 +21,11 @@ export const loginUser = queue => {
         return 0;
     }
 };
+
+export const validateLoginForm = form => {
+    const user = {
+        username: form.state.username,
+        password: form.state.password
+    }
+    return user.username.length > 0 && user.password.length > 0;
+}

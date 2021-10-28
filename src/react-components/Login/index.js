@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import {loginUser} from "../../actions/login"
+import {loginUser, validateLoginForm} from "../../actions/login"
 import "./styles.css";
 
 /*TODO: override MUI for better UI*/
 /* Component for the Login page */
+
 class Login extends React.Component {
   state = {
     username: "",
     password: "",
   };
-
 
   handleInputChange = event => {
     const target = event.target;
@@ -32,7 +32,6 @@ class Login extends React.Component {
         </h1>
         <form
           className="login"
-          onSubmit={this.handleSubmit}
         >
          <TextField
           className="UsernameTextfield"
@@ -64,6 +63,7 @@ class Login extends React.Component {
           }}
           className="login__button"
           variant="contained"
+          disabled={!validateLoginForm(this)}
         >
           Sign In
         </Button>

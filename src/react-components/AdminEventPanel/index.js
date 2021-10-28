@@ -1,8 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-
-// TODO: print buttons
+import { renderButtons} from "../../actions/adminEventPanel";
 class AdminEventPanel extends React.Component{
     state = {
         events: [
@@ -14,9 +13,10 @@ class AdminEventPanel extends React.Component{
         return (
             <div>
                 <h1>Admin: Event Management</h1>
+                {renderButtons(this)}
                 <Link to={"./../AdminUserPanel"}>
-                <Button> Manage Users  </Button>
-                </Link> 
+                <Button> Manage Users </Button>
+                </Link>
             </div>
         );
     }
