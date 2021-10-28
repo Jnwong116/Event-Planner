@@ -1,12 +1,30 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { renderButtons} from "../../actions/adminEventPanelRender";
+import { deleteEvent } from "../../actions/adminEventPanelActions";
+
+export const renderButtons = e => {
+    const result = []
+    for(var i = 0; i < e.state.events.length; i++){
+        var id = e.state.events[i].id;
+        result.push(<Button> {e.state.events[i].name} </Button>);
+        result.push(<Button> Update </Button>);
+        result.push(<Button
+                        onClick={() =>{
+                            this.deleteEvent = this.deleteEvent.bind(this);
+                          deleteEvent(this, id) /* this is not carried */
+                        }
+                    }
+                    > Delete </Button>);
+        result.push(<br></br>);
+    }
+    return <div> {result} </div>;
+}
 class AdminEventPanel extends React.Component{
     state = {
         events: [
-            {id: "0", name: "event1"},
-            {id: "1", name: "event2"}
+            {id: "0", name: "eventname1"},
+            {id: "1", name: "eventname2"}
         ]
     }
     render() {
