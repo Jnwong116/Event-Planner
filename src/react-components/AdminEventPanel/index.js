@@ -1,12 +1,12 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { renderButtons} from "../../actions/adminEventPanel";
+import { renderButtons} from "../../actions/adminEventPanelRender";
 class AdminEventPanel extends React.Component{
     state = {
         events: [
-            {id: "1", name: "event1"},
-            {id: "2", name: "event2"}
+            {id: "0", name: "event1"},
+            {id: "1", name: "event2"}
         ]
     }
     render() {
