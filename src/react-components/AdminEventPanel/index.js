@@ -11,8 +11,7 @@ export const renderButtons = e => {
         result.push(<Button> Update </Button>);
         result.push(<Button
                         onClick={() =>{
-                            this.deleteEvent = this.deleteEvent.bind(this);
-                          deleteEvent(this, id) /* this is not carried */
+                          deleteEvent(e, id)
                         }
                     }
                     > Delete </Button>);
