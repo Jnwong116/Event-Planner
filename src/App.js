@@ -7,6 +7,7 @@ import './App.css';
 
 import Login from './react-components/Login';
 import Welcome from './react-components/Welcome';
+import Register from './react-components/Register';
 
 class App extends React.Component {
 
@@ -26,6 +27,8 @@ class App extends React.Component {
                             (<Welcome appState={this.state}/>)}/>
             <Route exact path='/Login' render={() => 
                             (<Login appState={this.state}/>)}/>
+            <Route exact path='/Register' render={() => 
+                            (<Register appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>
       </div>

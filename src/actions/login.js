@@ -9,10 +9,13 @@ export const loginUser = queue => {
     if (user.username === "user" && user.password === "user"){
         // login to user page.
         // TODO: set state
-        log("is user")
+        log("is user");
     }
     else if (user.username === "admin" && user.password === "admin"){
         // login to admin page.
-        log("is admin")
+        log("is admin");
+    }
+    else{
+        log("wrong");
     }
 };
