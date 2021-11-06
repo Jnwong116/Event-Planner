@@ -2,18 +2,21 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import {deleteUser} from "../../actions/adminPanelActions";
+
 export const renderButtons = e => {
     const users = {
         users: e.state.users
     }
     const result = []
     for(let i = 0; i < e.state.users.length; i++){
-        let id = e.state.users[i].id
-        result.push(<Button> {e.state.users[i].username} </Button>);
+        let key = e.state.users[i].key
+        result.push(
+            <Button>{e.state.users[i].username} </Button>
+        );
         result.push(<Button> Update </Button>);
         result.push(<Button
             onClick={() =>{
-              deleteUser(e, id)
+              deleteUser(e, key)
             }
         }
         > Delete </Button>);
@@ -23,17 +26,20 @@ export const renderButtons = e => {
 }
 class AdminUserPanel extends React.Component{
     state = {
+        seen: false,
         users: [
-            {id: "1", username: "user1", email : "aaa@b.c", name: "aa bb"},
-            {id: "2", username: "u", email : "aaa@b.c", name: "aa bb"},
-            {id: "3", username: "user", email : "aaa@b.c", name: "aa bb"}
+            {key : 1 , username: "user1", email : "aaa@b.c", name: "aa bb"},
+            {key : 2 , username: "u", email : "aaa@b.c", name: "aa bb"},
+            {key : 3 , username: "user", email : "aaa@b.c", name: "aa bb"}
         ]
     }
+
     render() {
         return (
             <div>
                 <h1>Admin: User Management</h1>
                 {renderButtons(this)}
+                
                 <Link to={"./../AdminEventPanel"}>
                 <Button> Manage Events </Button>
                 </Link> 
