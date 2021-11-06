@@ -9,7 +9,7 @@ export const renderButtons = e => {
     const result = []
     for(let i = 0; i < e.state.users.length; i++){
         let id = e.state.users[i].id
-        result.push(<Button> {e.state.users[i].name} </Button>);
+        result.push(<Button> {e.state.users[i].username} </Button>);
         result.push(<Button> Update </Button>);
         result.push(<Button
             onClick={() =>{
@@ -24,9 +24,9 @@ export const renderButtons = e => {
 class AdminUserPanel extends React.Component{
     state = {
         users: [
-            {id: "1", name: "user1"},
-            {id: "2", name: "u"},
-            {id: "3", name: "user"}
+            {id: "1", username: "user1", email : "aaa@b.c", name: "aa bb"},
+            {id: "2", username: "u", email : "aaa@b.c", name: "aa bb"},
+            {id: "3", username: "user", email : "aaa@b.c", name: "aa bb"}
         ]
     }
     render() {
