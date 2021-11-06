@@ -1,12 +1,13 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { deleteEvent } from "../../actions/adminEventPanelActions";
+import { deleteEvent } from "../../actions/adminPanelActions";
 
+// TODO: whenever EventPreview completes, use that.
 export const renderButtons = e => {
     const result = []
-    for(var i = 0; i < e.state.events.length; i++){
-        var id = e.state.events[i].id;
+    for(let i = 0; i < e.state.events.length; i++){
+        let id = e.state.events[i].id;
         result.push(<Button> {e.state.events[i].name} </Button>);
         result.push(<Button> Update </Button>);
         result.push(<Button
