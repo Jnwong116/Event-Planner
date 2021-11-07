@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import {deleteUser} from "../../actions/adminPanelActions";
+import './styles.css';
 
 export const renderButtons = e => {
     const users = {
@@ -11,9 +12,11 @@ export const renderButtons = e => {
     for(let i = 0; i < e.state.users.length; i++){
         let key = e.state.users[i].key
         result.push(
-            <Button>{e.state.users[i].username} </Button>
-        );
-        result.push(<Button> Update </Button>);
+            <Link to = {"./../user/" + e.state.users[i].username}>
+                <Button>{e.state.users[i].username} </Button>
+            </Link>
+        ); // hardcoded pages. TODO: user profile pages.
+        result.push(<Button> Update </Button>); // go to the update page. update it.
         result.push(<Button
             onClick={() =>{
               deleteUser(e, key)
@@ -37,7 +40,7 @@ class AdminUserPanel extends React.Component{
     render() {
         return (
             <div>
-                <h1>Admin: User Management</h1>
+                <h1 class="userPTitle">Admin: User Management</h1>
                 {renderButtons(this)}
                 
                 <Link to={"./../AdminEventPanel"}>
