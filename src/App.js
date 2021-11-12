@@ -11,6 +11,7 @@ import Register from './react-components/Register';
 import AdminEventPanel from './react-components/AdminEventPanel';
 import AdminUserPanel from './react-components/AdminUserPanel';
 import HomePage from './react-components/HomePage';
+import EditProfile from './react-components/EditProfilePanel';
 
 class App extends React.Component {
 
@@ -36,7 +37,9 @@ class App extends React.Component {
             <Route exact path='/AdminUserPanel' render={() => 
                             (<AdminUserPanel appState={this.state}/>)}/>
             <Route exact path='/home' render={() => 
-                            (<HomePage appState={this.state}/>)}/>                            
+                            (<HomePage appState={this.state}/>)}/>   
+            <Route exact path='/EditProfilePanel' render={() => 
+                            (<EditProfile appState={this.state}/>)}/>                          
           </Switch>
         </BrowserRouter>
       </div>

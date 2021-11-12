@@ -58,9 +58,11 @@ class Login extends React.Component {
         <Button
           onClick={() => {
             if (loginUser(this) === 1){
+              localStorage.setItem('user', this.state.username)
               window.location.href='/home'
             }
             if (loginUser(this) === 2){
+              localStorage.setItem('user', this.state.username)
               window.location.href='/adminEventPanel'
             }
           }}

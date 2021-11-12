@@ -11,6 +11,11 @@ export const loginUser = form => {
         log("is user");
         return 1;
     }
+    else if (user.username === "user2" && user.password === "user2"){
+
+        log("is user2");
+        return 1;
+    }
     else if (user.username === "admin" && user.password === "admin"){
         // login to admin page.
         log("is admin");

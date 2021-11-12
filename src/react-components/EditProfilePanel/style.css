@@ -1,8 +1,8 @@
-.register_button {
+.edit_button {
     width: 200px;
     height: 60px;
 }
 
-.MuiButton-root.register_button {
+.MuiButton-root.edit_button {
     background-color: transparent;
 }

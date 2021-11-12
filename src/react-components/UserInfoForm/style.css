@@ -1,0 +1,8 @@
+/* Styles for the Input React component */
+.input {
+    width: 280px;
+}
+.input .MuiFormLabel-root,
+.input .MuiFormLabel-root.Mui-focused {
+    color: darkslategray;
+}

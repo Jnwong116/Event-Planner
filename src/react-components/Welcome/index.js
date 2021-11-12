@@ -16,9 +16,9 @@ class Welcome extends React.Component {
         <Link className="button-link button2" to={"./../Register"}>
           <Button className="button"> Register </Button>
         </Link> 
-        <Link className="button-link button3" to={"./../"}>
-          <Button className="button"> Continue as Guest  </Button>{/*TODO: fix the button*/}
-        </Link> 
+        {/* <Link className="button-link button3" to={"./../"}>
+          <Button className="button"> Continue as Guest  </Button>
+        </Link>  */}
       </div>
     );
   }
