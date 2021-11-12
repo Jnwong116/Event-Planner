@@ -12,6 +12,7 @@ import AdminEventPanel from './react-components/AdminEventPanel';
 import AdminUserPanel from './react-components/AdminUserPanel';
 import HomePage from './react-components/HomePage';
 import EditProfile from './react-components/EditProfilePanel';
+import EventPage from './react-components/EventPage';
 
 class App extends React.Component {
 
@@ -38,6 +39,8 @@ class App extends React.Component {
                             (<AdminUserPanel appState={this.state}/>)}/>
             <Route exact path='/home' render={() => 
                             (<HomePage appState={this.state}/>)}/>   
+            <Route exact path='/events/:event_id' render={() => 
+                            (<EventPage appState={this.state}/>)}/>   
             <Route exact path='/EditProfilePanel' render={() => 
                             (<EditProfile appState={this.state}/>)}/>                          
           </Switch>
