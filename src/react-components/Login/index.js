@@ -2,9 +2,25 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import {loginUser, validateLoginForm} from "../../actions/login"
+import {validateLoginForm} from "../../actions/login"
+
 import "./styles.css";
-/*TODO: override MUI for better UI*/
+
+let users = [
+  {
+    "user_id": 0,
+    "username":"user",
+    "password":"user",
+    "role":"general"
+  },
+  {
+    "user_id": 1,
+    "username":"admin",
+    "password":"admin",
+    "role":"admin"
+  }
+]
+
 /* Component for the Login page */
 class Login extends React.Component {
   state = {
@@ -20,6 +36,25 @@ class Login extends React.Component {
       [name]: value
     })
   };
+
+  loginUser = () => {
+    const user = {
+      username: this.state.username,
+      password: this.state.password
+    }
+
+    // Makes backend call to check if the user credentials are correct
+    for (let i = 0; i < users.length; i++) {
+      let check = users[i];
+
+      if (user.username === check.username && user.password === check.password) {
+        return check;
+      }
+    }
+    console.log("Incorrect credentials")
+    return 0
+  };
+
   
   render() {
 
@@ -57,13 +92,10 @@ class Login extends React.Component {
         <br />
         <Button
           onClick={() => {
-            if (loginUser(this) === 1){
-              localStorage.setItem('user', this.state.username)
+            let valid = this.loginUser()
+            if (valid !== 0) {
+              localStorage.setItem('user', JSON.stringify(valid))
               window.location.href='/home'
-            }
-            if (loginUser(this) === 2){
-              localStorage.setItem('user', this.state.username)
-              window.location.href='/adminEventPanel'
             }
           }}
           className="login__button"
