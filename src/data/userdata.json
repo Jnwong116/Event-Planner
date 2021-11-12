@@ -1,0 +1,18 @@
+{
+    "data":{
+        "users":[
+            {
+                "user_id": 0,
+                "username":"user",
+                "password":"user",
+                "role":"general"
+            },
+            {
+                "user_id": 1,
+                "username":"admin",
+                "password":"admin",
+                "role":"admin"
+            }
+        ]
+    }
+}
