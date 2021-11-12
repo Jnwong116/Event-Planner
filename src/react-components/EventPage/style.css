@@ -1,0 +1,38 @@
+.grid {
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: auto auto auto;
+    margin-left: 60px;
+    grid-template-areas: 
+    "header header header";
+}
+
+.grid-header {
+    grid-area: header;
+    text-align: center;
+}
+
+button {
+    background: none;
+    cursor: pointer;
+    border: none;
+}
+
+.userProfile {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    text-align: center;
+    font-size: 12pt;
+}
+
+.userIcon {
+    width: 50px;
+    height: 50px;
+}
+
+.greeting {
+    position: relative;
+    margin-right: 10px;
+    top: -17px;
+}

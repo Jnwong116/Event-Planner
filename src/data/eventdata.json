@@ -1,0 +1,65 @@
+{
+    "event-01":{
+        "name": "Event 01",
+        "style": "blue",
+        "users": ["Bob", "Amy", "Jane"],
+        "messages":[
+            {
+                "sender": "Bob",
+                "content": "Bonjour",
+                "timestamp": "2021-04-23T00:00:00.000Z"
+            },
+            {
+                "sender": "Amy",
+                "content": "How ya doin",
+                "timestamp": "2021-04-25T00:00:00.000Z"
+            },{
+                "sender": "Jane",
+                "content": "Noice",
+                "timestamp": "2021-04-26T00:00:00.000Z"
+            }
+        ]
+    },
+    "event-02":{
+        "name": "Event 02",
+        "style": "red",
+        "users": ["Bob", "Amy", "Jane"],
+        "messages":[
+            {
+                "sender": "Bob",
+                "content": "Bonjour",
+                "timestamp": "2021-04-23T00:00:00.000Z"
+            },
+            {
+                "sender": "Amy",
+                "content": "How ya doin",
+                "timestamp": "2021-04-25T00:00:00.000Z"
+            },{
+                "sender": "Jane",
+                "content": "Noice",
+                "timestamp": "2021-04-26T00:00:00.000Z"
+            }
+        ]
+    },"event-03":{
+        "name": "Event 03",
+        "style": "green",
+        "users": ["Bob", "Amy", "Jane"],
+        "messages":[
+            {
+                "sender": "Bob",
+                "content": "Bonjour",
+                "timestamp": "2021-04-23T00:00:00.000Z"
+            },
+            {
+                "sender": "Amy",
+                "content": "How ya doin",
+                "timestamp": "2021-04-25T00:00:00.000Z"
+            },{
+                "sender": "Jane",
+                "content": "Noice",
+                "timestamp": "2021-04-26T00:00:00.000Z"
+            }
+        ]
+    }
+
+}
