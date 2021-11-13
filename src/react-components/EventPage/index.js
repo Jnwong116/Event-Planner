@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import EventPreview from "./../EventPreview";
+import LiveChat from "./../LiveChat";
+import UserList from "../UserList";
 import { getEvents } from "../../actions/homePage";
 import userProfileIcon from './../../images/user.png';
 
@@ -10,7 +11,16 @@ let eventData = [
         "id": "event1",
         "name": "Event 01",
         "style": "blue",
-        "users": ["Bob", "Amy", "Jane"],
+        "users": [
+            {
+                "name": "user",
+                "role": "general"
+            },
+            {
+                "name": "admin",
+                "role": "admin"
+            },
+        ],
         "messages":[
             {
                 "sender": "Bob",
@@ -40,19 +50,28 @@ let eventData = [
         "id": "event2",
         "name": "Event 02",
         "style": "red",
-        "users": ["Bob", "Amy", "Jane"],
+        "users": [
+            {
+                "name": "user",
+                "role": "general"
+            },
+            {
+                "name": "admin",
+                "role": "admin"
+            },
+        ],
         "messages":[
             {
-                "sender": "Bob",
+                "sender": "user",
                 "content": "Bonjour",
                 "timestamp": "2021-04-23T00:00:00.000Z"
             },
             {
-                "sender": "Amy",
+                "sender": "admin",
                 "content": "How ya doin",
                 "timestamp": "2021-04-25T00:00:00.000Z"
             },{
-                "sender": "Jane",
+                "sender": "user",
                 "content": "Noice",
                 "timestamp": "2021-04-26T00:00:00.000Z"
             }
@@ -61,7 +80,16 @@ let eventData = [
         "id": "event3",
         "name": "Event 03",
         "style": "green",
-        "users": ["Bob", "Amy", "Jane"],
+        "users": [
+            {
+                "name": "user",
+                "role": "general"
+            },
+            {
+                "name": "admin",
+                "role": "admin"
+            },
+        ],
         "messages":[
             {
                 "sender": "Bob",
@@ -132,9 +160,12 @@ class EventPage extends React.Component {
                 </div>
                 <div className="grid">
                     <h1 className="grid-header">You Are Viewing {name}</h1>
+                    <LiveChat messages={this.state.messages}/>
+                    <UserList users={this.state.users}/>
                     {/* getEvents(this.state.user) */}
 
                 </div>
+
             </div>
         )
     }
