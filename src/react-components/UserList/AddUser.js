@@ -6,11 +6,13 @@ class AddUser extends React.Component {
         user:"",
         role:""
     }
-    insertUserWrap(insertUser){
+    insertUserWrap = (insertUser)=>{
         let username = document.getElementById('username').value
         let userrole = document.getElementById('userrole').value
-
-        insertUser(username, userrole)
+        console.log(username)
+        console.log(userrole)
+        console.log(this.props)
+        this.props.insertUser(username, userrole)
     }
     render() {
         const {
@@ -26,7 +28,7 @@ class AddUser extends React.Component {
                      <label>User Role</label>
                     <input id="userrole" type="text"></input>
                 </div>
-                <button onClick={this.insertUserWrap(insertUser)}>Add User</button>
+                <button onClick={()=>this.insertUserWrap(insertUser)}>Add User</button>
             </div>
         )
     }

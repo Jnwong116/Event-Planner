@@ -239,7 +239,7 @@ class EventPage extends React.Component {
                 </div>
                 <div className="grid">
                     <h1 className="grid-header">You Are Viewing {name}</h1>
-                    <UserList users={this.state.users} deleteUser={()=>this.deleteUser} insertUser={()=>this.insertUser}/>
+                    <UserList users={this.state.users} deleteUser={()=>this.deleteUser} insertUser={this.insertUser}/>
                     <TaskList tasks={this.state.tasks} users={this.state.users} deleteTask={()=>this.deleteTask}/>
                     <LiveChat messages={this.state.messages}/>
                     {/* getEvents(this.state.user) */}
