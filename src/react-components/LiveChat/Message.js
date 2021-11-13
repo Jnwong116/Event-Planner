@@ -2,7 +2,9 @@ import React from "react";
 import './style.css';
 
 class Message extends React.Component {
-
+    textFormat(input){
+        return input.charAt(0).toUpperCase() + input.substring(1);
+    }
     render() {
         const {
             sender, content, timestamp
@@ -11,7 +13,7 @@ class Message extends React.Component {
         return(
             <div className="message">
                 <div className="sender">
-                    {sender}
+                    {this.textFormat(sender)}
                 </div>
                 <p className="content">
                     {content}

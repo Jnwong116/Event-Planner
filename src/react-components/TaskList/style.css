@@ -15,25 +15,27 @@
     padding-right: 15px;
     background-color: grey;
 }
-.user {
+.task {
     border: 2px solid indigo;
     background-color: #f1f1f1;
     border-radius: 5px;
-    padding: 30px;
+    padding: 20px;
     margin: 10px;
 }
-.role {
-    float: left;
+.progress {
+    color: lime;
+    margin-bottom: 20px;
+    font-style: italic;
+    text-align: left;
+}
+.date {
+    float: right;
     color: #aaa;
     margin-bottom: 20px;
     font-style: italic;
+    text-align: right;
 }
 .name {
     font-size: 20px;
     font-weight: 300;
-}
-.deleteIcon {
-    width: 25px;
-    height: 25px;
-    float: right;
 }
