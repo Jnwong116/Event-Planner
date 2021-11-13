@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import EventPreview from "./../EventPreview";
+import LiveChat from "./../LiveChat";
 import { getEvents } from "../../actions/homePage";
 import userProfileIcon from './../../images/user.png';
 
@@ -132,9 +132,11 @@ class EventPage extends React.Component {
                 </div>
                 <div className="grid">
                     <h1 className="grid-header">You Are Viewing {name}</h1>
+                    <LiveChat messages={this.state.messages}/>
                     {/* getEvents(this.state.user) */}
 
                 </div>
+
             </div>
         )
     }

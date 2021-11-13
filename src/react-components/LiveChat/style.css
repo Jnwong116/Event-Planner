@@ -1,0 +1,34 @@
+.msgtitle {
+    text-align: center;
+    color: grey;
+    font-size: 32px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color:#fac2ff;
+    font-weight: 200;
+}
+.messages {
+    border: indigo;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: grey;
+}
+.message {
+    border: 2px solid indigo;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+}
+.timestamp {
+    float: right;
+    color: #aaa;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+.sender {
+    font-size: 20px;
+    font-weight: 300;
+}
