@@ -6,12 +6,12 @@ class AddUser extends React.Component {
         user:"",
         role:""
     }
-    /*changeName(event){
-        this.setState({user:event.target.value})
+    insertUserWrap(insertUser){
+        let username = document.getElementById('username').value
+        let userrole = document.getElementById('userrole').value
+
+        insertUser(username, userrole)
     }
-    changeRole(event){
-        this.setState({role:event.target.value})
-    }*/
     render() {
         const {
             insertUser
@@ -20,13 +20,13 @@ class AddUser extends React.Component {
             <div className="user">
                 <div>
                     <label>User Name</label>
-                    <input id="username" type="text" /*value={this.state.user} onChange={this.changeName}*/></input>
+                    <input id="username" type="text"></input>
                 </div>
                 <div>
                      <label>User Role</label>
-                    <input id="userrole" type="text" /*value={this.state.role} onChange={this.changeRole}*/></input>
+                    <input id="userrole" type="text"></input>
                 </div>
-                <button onClick={insertUser(document.getElementById('username'), document.getElementById('userrole'))}>Add User</button>
+                <button onClick={this.insertUserWrap(insertUser)}>Add User</button>
             </div>
         )
     }
