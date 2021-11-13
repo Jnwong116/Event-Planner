@@ -2,10 +2,31 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LiveChat from "./../LiveChat";
 import UserList from "../UserList";
+import TaskList from "../TaskList";
 import { getEvents } from "../../actions/homePage";
 import userProfileIcon from './../../images/user.png';
 
 import './style.css';
+let userData = [
+    {
+        "user_id": 0,
+        "username":"user",
+        "password":"user",
+        "role":"general"
+    },
+    {
+        "user_id": 1,
+        "username":"user",
+        "password":"user",
+        "role":"general"
+    },
+    {
+        "user_id": 2,
+        "username":"admin",
+        "password":"admin",
+        "role":"admin"
+    }
+]
 let eventData = [
     {
         "id": "event1",
@@ -39,7 +60,7 @@ let eventData = [
         ],
         "tasks": [
             {
-                "description": "temp",
+                "description": "Walk down a road",
                 "date":"2021-04-26T00:00:00.000Z",
                 "status":"in-progress",
                 "user" : 0
@@ -49,10 +70,14 @@ let eventData = [
     {
         "id": "event2",
         "name": "Event 02",
-        "style": "red",
+        "style": "purple",
         "users": [
             {
                 "name": "user",
+                "role": "general"
+            },
+            {
+                "name": "user1",
                 "role": "general"
             },
             {
@@ -74,6 +99,20 @@ let eventData = [
                 "sender": "user",
                 "content": "Noice",
                 "timestamp": "2021-04-26T00:00:00.000Z"
+            }
+        ],
+        "tasks": [
+            {
+                "description": "Spin in a circle",
+                "date":"2021-04-26T00:00:00.000Z",
+                "status":"in-progress",
+                "user" : 0
+            },
+            {
+                "description": "Jump around ",
+                "date":"2021-04-26T00:00:00.000Z",
+                "status":"in-progress",
+                "user" : 0
             }
         ]
     },{
@@ -105,6 +144,14 @@ let eventData = [
                 "content": "Noice",
                 "timestamp": "2021-04-26T00:00:00.000Z"
             }
+        ],
+        "tasks": [
+            {
+                "description": "Do a handstand",
+                "date":"2021-04-26T00:00:00.000Z",
+                "status":"in-progress",
+                "user" : 0
+            }
         ]
     }
 ]
@@ -121,6 +168,38 @@ class EventPage extends React.Component {
 
     componentDidMount(){
         this.getEventData();
+    }
+    deleteUser = (id)=>{
+        console.log(id)
+        let curUsers = this.state.users;
+        curUsers.splice(id, 1)
+
+        if(this.state.users.length>0){
+            this.setState({
+                users: curUsers
+            }, ()=>{
+                console.log(this.state)
+            })
+        }
+    }
+    insertUser = (name, role)=>{
+        let curUsers = this.state.users;
+        curUsers.push({name:name,role:role})
+        console.log(name)
+        console.log(role)
+        this.setState({users:curUsers})
+    }
+    deleteTask = (id)=>{
+        let curTasks = this.state.tasks;
+        curTasks.splice(id, 1)
+
+        if(this.state.tasks.length>0){
+            this.setState({
+                tasks: curTasks
+            }, ()=>{
+                console.log(this.state)
+            })
+        }
     }
     getEventData = ()=>{
         let urlParse = window.location.href.split("/")  //gets last part of url
@@ -160,8 +239,9 @@ class EventPage extends React.Component {
                 </div>
                 <div className="grid">
                     <h1 className="grid-header">You Are Viewing {name}</h1>
+                    <UserList users={this.state.users} deleteUser={()=>this.deleteUser} insertUser={()=>this.insertUser}/>
+                    <TaskList tasks={this.state.tasks} users={this.state.users} deleteTask={()=>this.deleteTask}/>
                     <LiveChat messages={this.state.messages}/>
-                    <UserList users={this.state.users}/>
                     {/* getEvents(this.state.user) */}
 
                 </div>

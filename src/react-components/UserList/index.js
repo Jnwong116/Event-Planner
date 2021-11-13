@@ -1,11 +1,12 @@
 import React from "react";
 import User from "./User";
+import AddUser from "./AddUser";
 import './style.css';
 class UserList extends React.Component {
     
     render() {
-        const {
-            users
+        let {
+            users, deleteUser, insertUser
         } = this.props;
         return(
             <div className="userbox">
@@ -14,10 +15,11 @@ class UserList extends React.Component {
                 <div className="messages">
                 {
                     users.map(function(item, i){
-                        return (<User key={i} name={item.name} role={item.role} />)
+                        return (<User  id={i} name={item.name} role={item.role} deleteUser={deleteUser} />)
                     })
                 }
                 </div>
+                <AddUser insertUser={insertUser}/>
             </div>
         )
     }
