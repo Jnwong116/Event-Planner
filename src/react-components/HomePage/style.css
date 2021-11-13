@@ -36,3 +36,53 @@ button {
     margin-right: 10px;
     top: -17px;
 }
+
+
+.delete-button {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+}
+
+.preview {
+    position: relative;
+}
+
+.delete-button-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.create-button {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
+.create_button {
+    width: 200px;
+    height: 60px;
+}
+
+.MuiButton-root.create_button {
+    background-color: transparent;
+}
+
+.create-popup {
+    text-align: center;
+    width: 200px;
+    position: absolute;
+    bottom: 100px;
+    left: 150px;
+    border-radius: 6px;
+    border-color: black;
+    border-style: solid;
+    padding: 15px;
+}
+
+.create-popup .show {
+    visibility: visible;
+}

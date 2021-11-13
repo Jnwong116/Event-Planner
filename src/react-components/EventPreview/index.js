@@ -5,12 +5,13 @@ import './style.css';
 class EventPreview extends React.Component {
     render() {
         const {
+            id,
             name,
             backgroundColor
         } = this.props;
 
         return(
-            <div className="preview"
+            <div className="preview" id={id}
                 style={{
                     backgroundColor: this.props.backgroundColor
                 }}>
