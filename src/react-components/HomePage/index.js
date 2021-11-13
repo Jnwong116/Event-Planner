@@ -176,7 +176,9 @@ class HomePage extends React.Component {
                     {
                         eventsList.map((item, i) => {
                             return (
-                            <div className="preview">
+                            <div className="preview" onClick={() => {
+                                window.location.href='/events/' + item.id;
+                            }}>
                             <EventPreview id={item.id} name={item.name} backgroundColor={item.backgroundColor} />
                             <button onClick={() => {
                                 this.deleteEvent(item.id, eventsList)
