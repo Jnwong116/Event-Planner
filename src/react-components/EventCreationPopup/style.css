@@ -1,0 +1,8 @@
+.create_button {
+    width: 200px;
+    height: 60px;
+}
+
+.MuiButton-root.create_button {
+    background-color: transparent;
+}

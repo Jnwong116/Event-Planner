@@ -3,30 +3,29 @@ import { Link } from "react-router-dom";
 import LiveChat from "./../LiveChat";
 import UserList from "../UserList";
 import TaskList from "../TaskList";
-import { getEvents } from "../../actions/homePage";
 import userProfileIcon from './../../images/user.png';
 
 import './style.css';
-let userData = [
-    {
-        "user_id": 0,
-        "username":"user",
-        "password":"user",
-        "role":"general"
-    },
-    {
-        "user_id": 1,
-        "username":"user",
-        "password":"user",
-        "role":"general"
-    },
-    {
-        "user_id": 2,
-        "username":"admin",
-        "password":"admin",
-        "role":"admin"
-    }
-]
+// let userData = [
+//     {
+//         "user_id": 0,
+//         "username":"user",
+//         "password":"user",
+//         "role":"general"
+//     },
+//     {
+//         "user_id": 1,
+//         "username":"user",
+//         "password":"user",
+//         "role":"general"
+//     },
+//     {
+//         "user_id": 2,
+//         "username":"admin",
+//         "password":"admin",
+//         "role":"admin"
+//     }
+// ]
 let eventData = [
     {
         "id": "event1",
@@ -208,7 +207,7 @@ class EventPage extends React.Component {
         console.log(eventData)
         let foundEvent = null;
         for(let i=0; i<eventData.length; i++){
-            if(eventData[i].id == urlEventInfo){
+            if(eventData[i].id === urlEventInfo){
                 foundEvent = eventData[i]
                 break
             }

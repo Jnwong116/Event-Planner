@@ -8,8 +8,6 @@ import './App.css';
 import Login from './react-components/Login';
 import Welcome from './react-components/Welcome';
 import Register from './react-components/Register';
-import AdminEventPanel from './react-components/AdminEventPanel';
-import AdminUserPanel from './react-components/AdminUserPanel';
 import HomePage from './react-components/HomePage';
 import EditProfile from './react-components/EditProfilePanel';
 import EventPage from './react-components/EventPage';
@@ -33,10 +31,6 @@ class App extends React.Component {
                             (<Login appState={this.state}/>)}/>
             <Route exact path='/Register' render={() => 
                             (<Register appState={this.state}/>)}/>
-            <Route exact path='/AdminEventPanel' render={() => 
-                            (<AdminEventPanel appState={this.state}/>)}/>
-            <Route exact path='/AdminUserPanel' render={() => 
-                            (<AdminUserPanel appState={this.state}/>)}/>
             <Route exact path='/home' render={() => 
                             (<HomePage appState={this.state}/>)}/>   
             <Route exact path='/events/:event_id' render={() => 

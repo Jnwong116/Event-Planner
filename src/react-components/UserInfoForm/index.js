@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import React from "react";
+import { TextField } from "@material-ui/core";
 
 // import DateMomentUtils from '@date-io/moment';
-import DateFnsUtils from '@date-io/date-fns';
+// import DateFnsUtils from '@date-io/date-fns';
 
-import {
-  DatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+// import {
+//   DatePicker,
+//   MuiPickersUtilsProvider,
+// } from '@material-ui/pickers';
 
 
 import './style.css';
 
 class UserInfoForm extends React.Component {
   render() {
-        const {
-            name,
-            userName,
-            password,
-            confirmPassword,
-            email,
-            handleChange
-        } = this.props;
+        // const {
+        //     name,
+        //     userName,
+        //     password,
+        //     confirmPassword,
+        //     email,
+        //     handleChange
+        // } = this.props;
 
         return (
             <div>
@@ -29,7 +29,6 @@ class UserInfoForm extends React.Component {
                     variant="outlined"
                     name="name"
                     label="First and Last Name"
-                    value={name}
                     id="outlined"
                     defaultValue=""
                     margin="normal"

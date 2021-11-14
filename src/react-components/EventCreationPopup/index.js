@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 import './style.css';
@@ -30,6 +31,24 @@ class EventCreationPopup extends React.Component {
                     margin="normal"
                     onChange={this.handleInputChange}
                 />
+                <br />
+                <TextField
+                    variant="outlined"
+                    name="color"
+                    label="Color of thumbnail"
+                    id="outlined"
+                    defaultValue=""
+                    margin="normal"
+                    onChange={this.handleInputChange}
+                />
+                <br />
+                <Button onClick={() => {
+                    // Makes call to backend to create new event
+                    
+                }}
+                className="create_button"
+                variant="contained"
+                >Create</Button>
 
             </div>
         )
