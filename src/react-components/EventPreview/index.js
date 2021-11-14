@@ -7,7 +7,6 @@ class EventPreview extends React.Component {
         const {
             id,
             name,
-            backgroundColor
         } = this.props;
 
         return(
