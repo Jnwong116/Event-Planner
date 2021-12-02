@@ -7,8 +7,11 @@ import plus from './../../images/plus.png';
 // import EventCreationPopup from "../EventCreationPopup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import {getUser} from "../../actions/homePage"
 
 import './style.css';
+
+const log = console.log
 
 let userData = [
     {
@@ -156,6 +159,11 @@ class HomePage extends React.Component {
         })
 
         this.forceUpdate();
+    }
+
+    componentDidMount() {
+        let user = getUser();
+        log(user)
     }
 
     render() {
