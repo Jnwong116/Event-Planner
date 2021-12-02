@@ -8,7 +8,7 @@ const messageSchema = new Schema({
 })
 
 const taskSchema = new Schema({
-    user: [Number],
+    users: [mongoose.ObjectId],
     status: {type: String},
     date: {type: Date, default: Date.now}
 })
