@@ -19,7 +19,7 @@ connection.once('open', ()=>{
 
 const eventsRouter = require('./routes/events')
 const usersRouter = require('./routes/users')
-app.use('/events', eventsRouter)
+//app.use('/events', eventsRouter)
 app.use('/users', usersRouter)
 
 app.listen(port, ()=>{
