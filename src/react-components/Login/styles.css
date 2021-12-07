@@ -1,21 +1,24 @@
-.Title{
-    margin-top: 100px;
-    margin-bottom: 40px;
-    text-align:center;
+@import url(https://fonts.googleapis.com/css?family=Orbitron);
+
+.header-bg{
+    background-color: #01012b;
 }
 
-.login__content {
-    max-width: 600px;
-    padding: 40px 40px;
-    text-align: center;
-    margin: 0 auto;
-}
-.login__button {
-    width: 200px;
-    height: 60px;
+.cardb-bg{
+    background-color: #01012b;
     
 }
+.card-main{
+    border-color: #ff2a6d;
+    border-width: medium;
+    color: #05d9e8;
+    font-family: 'Orbitron', courier, sans-serif;
 
-.MuiButton-root.login__button {
-    background-color: transparent;
-  }
+}
+.cyber-border{
+    border-color: #ff2a6d;
+    border-width: medium;
+}
+.button-bg{
+    background-color: #005678;
+}

@@ -170,7 +170,7 @@ class HomePage extends React.Component {
         const eventsList = this.getEvents();
         let popUpVisible = false;
         return (
-            <div>
+            <div> 
                 <div className="profile">
                     <Link to={"./../EditProfilePanel"}>
                         <button className="userProfile">

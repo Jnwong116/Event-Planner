@@ -1,12 +1,19 @@
 /* Top-level shared styles */
 
-html {
-  height: 100%;
+html, body, #app, #app, #root {
+  height: 100%
+}
+
+#root{
+  background-color: #01012b;
+
 }
 
 body {
   color: darkslategrey;
-  background-color: white;
+  background-color: black;
   margin: 40px;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
+
+

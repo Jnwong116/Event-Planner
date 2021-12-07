@@ -4,6 +4,7 @@ import React from 'react';
 // Importing react-router-dom to use the React Router
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Login from './react-components/Login';
 import Welcome from './react-components/Welcome';
@@ -21,7 +22,8 @@ class App extends React.Component {
 
   render() {
     return (
-        <div>
+      <div class="row h-100 w-100">
+        <div class="col-sm-12 my-auto">
         <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
@@ -39,6 +41,7 @@ class App extends React.Component {
                             (<EditProfile appState={this.state}/>)}/>                          
           </Switch>
         </BrowserRouter>
+      </div>
       </div>
     );  
   }

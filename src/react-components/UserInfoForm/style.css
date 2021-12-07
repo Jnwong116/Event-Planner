@@ -1,8 +1,24 @@
-/* Styles for the Input React component */
-.input {
-    width: 280px;
+@import url(https://fonts.googleapis.com/css?family=Orbitron);
+
+.header-bg{
+    background-color: #01012b;
 }
-.input .MuiFormLabel-root,
-.input .MuiFormLabel-root.Mui-focused {
-    color: darkslategray;
+
+.cardb-bg{
+    background-color: #01012b;
+    
+}
+.card-main{
+    border-color: #ff2a6d;
+    border-width: medium;
+    color: #05d9e8;
+    font-family: 'Orbitron', courier, sans-serif;
+
+}
+.cyber-border{
+    border-color: #ff2a6d;
+    border-width: medium;
+}
+.button-bg{
+    background-color: #005678;
 }
