@@ -5,10 +5,9 @@ import userProfileIcon from './../../images/user.png';
 import redX from './../../images/delete_icon.png';
 import plus from './../../images/plus.png';
 // import EventCreationPopup from "../EventCreationPopup";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+//import Button from "@material-ui/core/Button";
 import {getUser, addEvent, deleteEvent} from "../../actions/homePage"
-
+import {Input, Button} from "reactstrap";
 import './style.css';
 
 class HomePage extends React.Component {
@@ -50,8 +49,9 @@ class HomePage extends React.Component {
     render() {
         let popUpVisible = false;
         return (
-            <div>
+            <div> 
                 <div className="profile">
+                <h1 className="grid-header">Your Events</h1>
                     <Link to={"./../EditProfilePanel"}>
                         <button className="userProfile">
                             <span className="greeting">Hello {this.state.user.username}</span>
@@ -59,63 +59,86 @@ class HomePage extends React.Component {
                         </button>
                     </Link>
                 </div>
-                <div className="grid">
-                    <h1 className="grid-header">Your Events</h1>
+                
+                <div className="container">  
+                <div className="row mb-5">  
                     {
                         this.state.eventsList.map((item, i) => {
                             return (
-                                <div className="preview">
-                                    <div onClick={() => {
-                                        window.location.href='/events/' + item.name;
-                                    }} >
-                                        <EventPreview id={item._id} name={item.name} backgroundColor={item.style} />
+                            <div className="col-3">
+                                <div className="card pu">
+                                    <div className="card-header" style={{
+                backgroundColor: item.backgroundColor
+            }}>
+                                        <button onClick={() => {
+                                            deleteEvent(this, item._id)
+                                        }} className="delete-button">
+                                            <img src={redX} alt="Delete button" className="delete-button-icon"></img>
+                                        </button>
                                     </div>
-                                    <button onClick={() => {
-                                        deleteEvent(this, item._id)
-                                    }} className="delete-button">
-                                        <img src={redX} alt="Delete button" className="delete-button-icon"></img>
-                                    </button>
+                                    <div className="card-body" style={{
+                backgroundColor: item.backgroundColor
+            }}>
+                                <div onClick={() => {
+                                    window.location.href='/events/' + item.name;
+                                }}>
+                                    <EventPreview id={item._id} name={item.name} backgroundColor={item.backgroundColor} />
+                                    
                                 </div>
-                            )
+                                </div>
+                                </div>
+                            </div>)
+                            
                         })
                     }
                 </div>
-                <button className="create-button" onClick={() => {
+                
+
+                <div className="row mt-5">
+                    <div className="col">
+                    <button className="create-button" onClick={() => {
                     this.showPopup(popUpVisible);
                 }}>
                         <img src={plus} alt="Create new event button"></img>
                 </button>
-                <div className="create-popup" id="popup">
-                    <h1>Create Event</h1>
-                    <TextField
-                        variant="outlined"
-                        name="eventName"
-                        label="Name of the Event"
-                        id="outlined"
-                        defaultValue=""
-                        margin="normal"
-                        onChange={this.handleInputChange}
-                    />
-                    <br />
-                    <TextField
-                        variant="outlined"
-                        name="eventColor"
-                        label="Color of thumbnail"
-                        id="outlined"
-                        defaultValue=""
-                        margin="normal"
-                        onChange={this.handleInputChange}
-                    />
-                    <br />
-                    <Button onClick={() => {
-                        // Makes call to backend to create new event
-                        addEvent(this);
-                    }}
-                    className="create_button"
-                    variant="contained"
-                    >Create</Button>
-
-                </div>  
+                <div className="card pu">
+                    <div className="card-body pu-body">
+                    
+                        <h1>Create Event</h1>
+                        <Input
+                            placeholder="Event Name"
+                            variant="outlined"
+                            name="eventName"
+                            label="Name of the Event"
+                            id="outlined"
+                            defaultValue=""
+                            margin="normal"
+                            onChange={this.handleInputChange}
+                        />
+                        <br />
+                        <Input
+                            placeholder="Event Color"
+                            variant="outlined"
+                            name="eventColor"
+                            label="Color of thumbnail"
+                            id="outlined"
+                            defaultValue=""
+                            margin="normal"
+                            onChange={this.handleInputChange}
+                        />
+                        <br />
+                        <Button onClick={() => {
+                            // Makes call to backend to create new event
+                            addEvent(this);
+                        }}
+                        className="create_button btn-sm"
+                        variant="contained"
+                        >Create</Button>
+                    </div>  
+                </div>
+                </div>
+                </div>
+                </div>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
+import { Button, Input, InputGroup } from "reactstrap"
 
 // import DateMomentUtils from '@date-io/moment';
 // import DateFnsUtils from '@date-io/date-fns';
@@ -25,8 +26,10 @@ class UserInfoForm extends React.Component {
 
         return (
             <div>
-                <TextField
+                <div className="form-group">
+                <Input
                     variant="outlined"
+                    placeholder="Name"
                     name="name"
                     label="First and Last Name"
                     id="outlined"
@@ -34,39 +37,25 @@ class UserInfoForm extends React.Component {
                     margin="normal"
                     onChange={this.props.handleChange}
                 />
+                </div>
                 <br />
-                <TextField
+                <div className="form-group">
+                <Input
                     variant="outlined"
                     name="userName"
+                    placeholder="Username"
                     label="Username"
                     id="outlined"
                     defaultValue=""
                     margin="normal"
                     onChange={this.props.handleChange}
                 />
+                </div>
                 <br />
-                <TextField
+                <div className="form-group">
+                <Input
                     variant="outlined"
-                    name="password"
-                    label="Password"
-                    id="outlined"
-                    defaultValue=""
-                    margin="normal"
-                    onChange={this.props.handleChange}
-                />
-                <br />
-                <TextField
-                    variant="outlined"
-                    name="confirmPassword"
-                    label="Confirm Password"
-                    id="outlined"
-                    defaultValue=""
-                    margin="normal"
-                    onChange={this.props.handleChange}
-                />
-                <br />
-                <TextField
-                    variant="outlined"
+                    placeholder="Email"
                     name="email"
                     label="Email"
                     id="outlined"
@@ -74,6 +63,35 @@ class UserInfoForm extends React.Component {
                     margin="normal"
                     onChange={this.props.handleChange}
                 />
+                </div>
+                <br />
+                <div className="form-group">
+                <Input
+                    variant="outlined"
+                    placeholder="Password"
+                    name="password"
+                    label="Password"
+                    id="outlined"
+                    defaultValue=""
+                    margin="normal"
+                    onChange={this.props.handleChange}
+                />
+                </div>
+                <br />
+                <div className="form-group">
+                <Input
+                    variant="outlined"
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    id="outlined"
+                    defaultValue=""
+                    margin="normal"
+                    onChange={this.props.handleChange}
+                />
+                </div>
+                <br />
+                
             </div>
         )
     }

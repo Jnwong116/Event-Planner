@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+//import Button from "@material-ui/core/Button";
+import { Button, Input, InputGroup } from "reactstrap"
 import TextField from "@material-ui/core/TextField";
-import {validateLoginForm} from "../../actions/login"
+import {validateLoginForm, login} from "../../actions/login"
 
 import "./styles.css";
 
@@ -26,6 +27,7 @@ class Login extends React.Component {
   state = {
     username: "",
     password: "",
+    login: ""
   };
 
   handleInputChange = event => {
@@ -57,48 +59,51 @@ class Login extends React.Component {
 
   
   render() {
-
+    const {app} = this.props
     return (
-      <div className="login__content">
-        <h1 className="Title">
-          Login
-        </h1>
-        <form
-          className="login"
-        >
-         <TextField
-          className="UsernameTextfield"
-          variant="outlined"
-          name="username"
-          label="Username"
-          id="outlined"
-          defaultValue=""
-          margin="normal"
-          onChange={this.handleInputChange}
-        />
-        <br />
-        <TextField
-          className="PasswordTextfield"
-          variant="outlined"
-          name="password"
-          label="Password"
-          id="outlined"
-          defaultValue=""
-          margin="normal"
-          onChange={this.handleInputChange}
-          type="password"
-        />
-        </form>
+        
+      <div className="card text-center card-main">
+        <div className="card-header header-bg">
+          <h1 className="Title">
+            Login
+          </h1>
+        </div>
+        <div className="card-body cardb-bg cyber-border">
+        <form>
+        
+       
+        <div className="form-group">
+          <Input
+            className="UsernameTextfield"
+            placeholder="Username"
+            variant="outlined"
+            name="username"
+            label="Username"
+            id="outlined"
+            defaultValue=""
+            margin="normal"
+            onChange={this.handleInputChange}
+          />
+          </div>
+          <br />
+          <div className="form-group">
+          <Input
+            className="PasswordTextfield"
+            placeholder="Password"
+            variant="outlined"
+            name="password"
+            label="Password"
+            id="outlined"
+            defaultValue=""
+            margin="normal"
+            onChange={this.handleInputChange}
+            type="password"
+          />
+        </div>
         <br />
         <Button
-          onClick={() => {
-            let valid = this.loginUser()
-            if (valid !== 0) {
-              localStorage.setItem('user', JSON.stringify(valid))
-              window.location.href='/home'
-            }
-          }}
-          className="login__button"
+          onClick={() => login(this, app)}
+          className="button-bg"
           variant="contained"
           disabled={!validateLoginForm(this)}
         >
@@ -106,11 +111,12 @@ class Login extends React.Component {
         </Button>
         <Link  to={"./../Register"}>
           <Button 
-            className="login__button"
+            className="button-bg"
             variant="contained"
           > Register </Button>
         </Link> 
-        
+        </form>
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import UserInfoForm from "../UserInfoForm";
-import Button from "@material-ui/core/Button";
-import "./styles.css";
+import {Button} from "reactstrap";
+//import "./styles.css";
 // TODO: finish this.
 class Register extends React.Component{
     state = {
@@ -22,8 +22,9 @@ class Register extends React.Component{
 
     render() {
         return(
-            <div>
-                <h1>Register</h1>
+            <div className="card text-center card-main">
+            <div className="card-header header-bg">
+            <h1 className="Title">Register</h1>
                 <UserInfoForm
                 name = {this.state.name}
                 userName= {this.state.userName}
@@ -42,6 +43,7 @@ class Register extends React.Component{
                     className="register_button"
                     variant="contained"
                 >Register</Button>
+            </div>
             </div>
             
         );

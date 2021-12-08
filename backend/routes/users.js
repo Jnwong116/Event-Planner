@@ -107,6 +107,57 @@ router.route('/:user_id/events/:event_id').delete((req, res)=>{
     })
 
 })
+router.route('/login').post((req, res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // log(email, password);
+    // Use the static method on the User model to find a user
+    // by their email and password
+    User.findOne({username: username})
+        .then(user => {
+            // Add the user's id to the session.
+            // We can check later if this exists to ensure we are logged in.
+            if(user.password == password){
+                console.log(req.session)
+                req.session.user = user._id;
+                req.session.username = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
+                res.send({ currentUser: user.username })
+            }else{
+                res.status(401).send()
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).send()
+        });
+})
+// A route to logout a user
+router.route('/logout').get((req, res)=>{
+    // Remove the session
+    req.session.destroy(error => {
+        if (error) {
+            res.status(500).send(error);
+        } else {
+            res.send()
+        }
+    });
+})
+
+router.route('/check-session').get((req, res)=>{
+    if (env !== 'production' && USE_TEST_USER) { // test user on development environment.
+        req.session.user = TEST_USER_ID;
+        req.session.email = TEST_USER_EMAIL;
+        res.send({ currentUser: TEST_USER_EMAIL })
+        return;
+    }
+
+    if (req.session.user) {
+        res.send({ currentUser: req.session.email });
+    } else {
+        res.status(401).send();
+    }
+})
 router.route('/add').post((req, res)=>{
     const newUser = new User(req.body)
 

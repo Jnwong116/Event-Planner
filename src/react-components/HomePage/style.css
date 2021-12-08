@@ -23,6 +23,7 @@ button {
     right: 30px;
     top: 20px;
     text-align: center;
+    color: white;
     font-size: 12pt;
 }
 
@@ -37,6 +38,9 @@ button {
     top: -17px;
 }
 
+.profile{
+    color: white;
+}
 
 .delete-button {
     width: 30px;
@@ -49,6 +53,7 @@ button {
 
 .preview {
     position: relative;
+    height: 30px;
 }
 
 .delete-button-icon {
@@ -65,6 +70,7 @@ button {
 .create_button {
     width: 200px;
     height: 60px;
+    background-color: #f64c72;
 }
 
 .MuiButton-root.create_button {
@@ -77,12 +83,29 @@ button {
     position: absolute;
     bottom: 100px;
     left: 150px;
-    border-radius: 6px;
-    border-color: black;
-    border-style: solid;
+    
+    color: white;
     padding: 15px;
+    background-color: #2f2fa2;
 }
 
 .create-popup .show {
     visibility: visible;
+}
+
+
+.pu-body{
+    background-color: #2f2fa2;
+    color: white;
+    
+}
+.pu{
+    border: none;
+    
+}
+
+.card-text{
+    color: white;
+    font-size: 20pt;
+    text-align: center;
 }

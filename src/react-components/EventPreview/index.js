@@ -10,12 +10,18 @@ class EventPreview extends React.Component {
         } = this.props;
 
         return(
-            <div className="preview" id={id}
-                style={{
-                    backgroundColor: this.props.backgroundColor
-                }}>
-                <div className="title">{name}</div>
-            </div>
+                <div className="container">
+                <div className="card-text">
+                    {name}
+                </div>
+                <div className="card-body">
+                    <div className="preview" id={id}>
+                        
+                        
+                    </div>
+                </div>
+                </div>
+                
         )
     }
 }
