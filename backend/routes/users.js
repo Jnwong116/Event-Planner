@@ -1,3 +1,5 @@
+const log = console.log
+
 const router = require('express').Router()
 const { ObjectID } = require('mongodb')
 

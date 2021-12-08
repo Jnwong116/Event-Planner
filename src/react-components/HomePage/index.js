@@ -7,126 +7,18 @@ import plus from './../../images/plus.png';
 // import EventCreationPopup from "../EventCreationPopup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import {getUser} from "../../actions/homePage"
+import {getUser, addEvent, deleteEvent} from "../../actions/homePage"
 
 import './style.css';
 
-const log = console.log
-
-let userData = [
-    {
-        "id": "event1",
-        "name": "Event 01",
-        "style": "blue",
-        "users": ["Bob", "Amy", "Jane"],
-        "messages":[
-            {
-                "sender": "Bob",
-                "content": "Bonjour",
-                "timestamp": "2021-04-23T00:00:00.000Z"
-            },
-            {
-                "sender": "Amy",
-                "content": "How ya doin",
-                "timestamp": "2021-04-25T00:00:00.000Z"
-            },{
-                "sender": "Jane",
-                "content": "Noice",
-                "timestamp": "2021-04-26T00:00:00.000Z"
-            }
-        ],
-        "tasks": [
-            {
-                "description": "temp",
-                "date":"2021-04-26T00:00:00.000Z",
-                "status":"in-progress",
-                "user" : 0
-            }
-        ]
-    },
-    {
-        "id": "event2",
-        "name": "Event 02",
-        "style": "purple",
-        "users": ["Bob", "Amy", "Jane"],
-        "messages":[
-            {
-                "sender": "Bob",
-                "content": "Bonjour",
-                "timestamp": "2021-04-23T00:00:00.000Z"
-            },
-            {
-                "sender": "Amy",
-                "content": "How ya doin",
-                "timestamp": "2021-04-25T00:00:00.000Z"
-            },{
-                "sender": "Jane",
-                "content": "Noice",
-                "timestamp": "2021-04-26T00:00:00.000Z"
-            }
-        ]
-    },{
-        "id": "event3",
-        "name": "Event 03",
-        "style": "green",
-        "users": ["Bob", "Amy", "Jane"],
-        "messages":[
-            {
-                "sender": "Bob",
-                "content": "Bonjour",
-                "timestamp": "2021-04-23T00:00:00.000Z"
-            },
-            {
-                "sender": "Amy",
-                "content": "How ya doin",
-                "timestamp": "2021-04-25T00:00:00.000Z"
-            },{
-                "sender": "Jane",
-                "content": "Noice",
-                "timestamp": "2021-04-26T00:00:00.000Z"
-            }
-        ]
-    }
-    ]
-
 class HomePage extends React.Component {
     state = {
-        user: JSON.parse(localStorage.getItem('user')), // Would make call to backend to get the current user
+        user: "",
+        eventsList: [],
         eventName: "",
         eventColor: ""
     }
-
-    deleteEvent = (id, eventsList) => {
-        for (let i = 0; i < eventsList.length; i++) {
-            let event = eventsList[i];
-            let eventName = event.id;
-            if (id === eventName) {
-                userData.splice(i, 1)
-                // Makes backend call to delete an event from this user's list of events
-            }
-        }
-        
-        this.forceUpdate();
-    }
-
-    getEvents = () => {
-        // Makes backend call to get all events user has access to
-        const eventsList = []
-        for (let i = 0; i < userData.length; i++) {
-            let event = userData[i];
-            let id = event.id;
-            let name = event.name;
-            let backgroundColor = event.style;
-            
-            eventsList.push({
-                id: id,
-                name: name,
-                backgroundColor: backgroundColor
-            })
-        }
-        return eventsList
-    }
-
+   
     handleInputChange = event => {
         const target = event.target;
         const value = target.value;
@@ -150,24 +42,12 @@ class HomePage extends React.Component {
         
     }
 
-    addEvent = () => {
-        // Makes call to backend to create new event
-        userData.push({
-            id: this.state.eventName,
-            name: this.state.eventName,
-            style: this.state.eventColor
-        })
-
-        this.forceUpdate();
-    }
-
     componentDidMount() {
-        let user = getUser();
-        log(user)
+        getUser(this);
+        
     }
 
     render() {
-        const eventsList = this.getEvents();
         let popUpVisible = false;
         return (
             <div>
@@ -182,18 +62,21 @@ class HomePage extends React.Component {
                 <div className="grid">
                     <h1 className="grid-header">Your Events</h1>
                     {
-                        eventsList.map((item, i) => {
+                        this.state.eventsList.map((item, i) => {
                             return (
-                            <div className="preview" onClick={() => {
-                                window.location.href='/events/' + item.id;
-                            }}>
-                            <EventPreview id={item.id} name={item.name} backgroundColor={item.backgroundColor} />
-                            <button onClick={() => {
-                                this.deleteEvent(item.id, eventsList)
-                            }} className="delete-button">
-                                <img src={redX} alt="Delete button" className="delete-button-icon"></img>
-                            </button>
-                            </div>)
+                                <div className="preview">
+                                    <div onClick={() => {
+                                        window.location.href='/events/' + item.name;
+                                    }} >
+                                        <EventPreview id={item._id} name={item.name} backgroundColor={item.style} />
+                                    </div>
+                                    <button onClick={() => {
+                                        deleteEvent(this, item._id)
+                                    }} className="delete-button">
+                                        <img src={redX} alt="Delete button" className="delete-button-icon"></img>
+                                    </button>
+                                </div>
+                            )
                         })
                     }
                 </div>
@@ -226,7 +109,7 @@ class HomePage extends React.Component {
                     <br />
                     <Button onClick={() => {
                         // Makes call to backend to create new event
-                        this.addEvent();
+                        addEvent(this);
                     }}
                     className="create_button"
                     variant="contained"
