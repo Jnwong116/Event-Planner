@@ -3,7 +3,7 @@ const log = console.log
 const router = require('express').Router()
 const { ObjectID } = require('mongodb')
 
-let User = require('../models/user.model')
+let {User, Event} = require('../models/user.model')
 
 
 // Gets all users
@@ -28,6 +28,15 @@ router.route('/:user_id').get((req, res)=>{
         }
     })
 
+})
+
+// Add a user
+router.route('/add').post((req, res)=>{
+    const newUser = new User(req.body)
+
+    newUser.save()
+        .then(()=>res.send(newUser))
+        .catch(err=>res.status(400).json('Error: '+err))
 })
 
 // Edits user info
@@ -60,7 +69,7 @@ router.route('/:user_id').patch((req, res) => {
 
 })
 
-
+// Get all events
 router.route('/:user_id/events').get((req, res)=>{
     const id = req.params.user_id
     if (!ObjectID.isValid(id)) {
@@ -70,9 +79,17 @@ router.route('/:user_id/events').get((req, res)=>{
     User.findById(id).then((user)=>{
         if(!user){
             res.status(400).send('Resource not found')
-        }else{
-            res.send({events: user.events})
+            return;
         }
+    })
+
+    User.findById(id)
+    .populate('events')
+    .exec(function (err, user) {
+        if (err) {
+            log(err)
+        }
+        res.send({user: user, events: user.events})
     })
 
 })
@@ -82,8 +99,8 @@ Request body expects:
     name,
     style
 }
-
 */
+// Adds an event
 router.route('/:user_id/events').post((req, res)=>{
     const id = req.params.user_id
     if (!ObjectID.isValid(id)) {
@@ -95,7 +112,7 @@ router.route('/:user_id/events').post((req, res)=>{
         if(!user){
             res.status(400).send('Resource not found')
         }else{
-            const event = {
+            const event = new Event({
                 name: req.body.name,
                 style: req.body.style,
                 messages: [],
@@ -104,9 +121,16 @@ router.route('/:user_id/events').post((req, res)=>{
                     username: user.username,
                     role: "Admin"
                 }]
-            }
+            })
+
+            event.save()
+            .catch((error) => {
+                log(error)
+                res.status(400).send('Bad Request')
+            })
+
             let events = user.events
-            events.push(event)
+            events.push(event._id)
             User.updateOne({_id: id}, {$set: {events: events}}).then((user)=>{
                 if(!user){
                     res.status(400).send()
@@ -115,10 +139,20 @@ router.route('/:user_id/events').post((req, res)=>{
                 log(error)
                 res.status(500).send('Internal Server Error')
             })
-            res.send({event: user.events[user.events.length-1], user: user})
+            
+            User.findById(id)
+            .populate('events')
+            .exec((err, user) => {
+                if (err) {
+                    log(err)
+                }
+                res.send({event: user.events[user.events.length-1], user: user})
+            })
         }
     })
 })
+
+//Deletes event from user
 router.route('/:user_id/events/:event_id').delete((req, res)=>{
     const id = req.params.user_id
     const event_id = req.params.event_id
@@ -131,10 +165,8 @@ router.route('/:user_id/events/:event_id').delete((req, res)=>{
             res.status(400).send('Resource not found')
         }else{
             let events = user.events
-            let found = null
             for(let i=0; i<events.length; i++){
-                if(events[i]._id === event_id){
-                    found = events[i]
+                if(events[i].toString() === event_id){
                     events.splice(i, 1)
                 }
             }
@@ -146,11 +178,38 @@ router.route('/:user_id/events/:event_id').delete((req, res)=>{
                 log(error)
                 res.status(500).send('Internal Server Error')
             })
-            res.send({event: found, user: user})
+            Event.findById(event_id).then((event) => {
+                let users = event.userRoles
+                for (let i = 0; i < users.length; i++) {
+                    if (users[i].username === user.username) {
+                        users.splice(i, 1)
+                    }
+                }
+                Event.updateOne({_id: event_id}, {$set: {userRoles: users}}).then((event) => {
+                    if (!event) {
+                        res.status(400).send()
+                    }
+                })
+                .catch((error) => {
+                    log(error)
+                    res.status(500).send('Internal Server Error')
+                })
+
+                User.findById(id)
+                .populate('events')
+                .exec((err, user) => {
+                    if (err) {
+                        log(err)
+                    }
+                    res.send({event: event, user: user})
+                })
+            })
+            
         }
     })
-
 })
+
+//Login
 router.route('/login').post((req, res)=>{
     const username = req.body.username;
     const password = req.body.password;
@@ -176,6 +235,7 @@ router.route('/login').post((req, res)=>{
             res.status(400).send()
         });
 })
+
 // A route to logout a user
 router.route('/logout').get((req, res)=>{
     // Remove the session
@@ -188,30 +248,28 @@ router.route('/logout').get((req, res)=>{
     });
 })
 
-router.route('/check-session').get((req, res)=>{
-    if (env !== 'production' && USE_TEST_USER) { // test user on development environment.
-        req.session.user = TEST_USER_ID;
-        req.session.email = TEST_USER_EMAIL;
-        res.send({ currentUser: TEST_USER_EMAIL })
+// Get a specific event
+router.route('/events/:event_id').get((req, res) => {
+    const event_id = req.params.event_id
+
+    if (!ObjectID.isValid(event_id)) {
+        res.status(404).send('Resource not found')
         return;
     }
 
-    if (req.session.user) {
-        res.send({ currentUser: req.session.email });
-    } else {
-        res.status(401).send();
-    }
+    Event.findById(event_id).then((event) => {
+        if (!event) {
+            res.status(400).send('Resource not found')
+        }
+        else {
+            res.send( event )
+        }
+    })
+    
 })
 
-router.route('/add').post((req, res)=>{
-    const newUser = new User(req.body)
-
-    newUser.save()
-        .then(()=>res.send(newUser))
-        .catch(err=>res.status(400).json('Error: '+err))
-})
-
-router.route('/:user_id/events/:event_id').get((req, res) => {
+// Adds user to an event
+router.route('/:user_id/events/:event_id/addUser').post((req, res) => {
     const id = req.params.user_id
     const event_id = req.params.event_id
 
@@ -219,26 +277,71 @@ router.route('/:user_id/events/:event_id').get((req, res) => {
         res.status(404).send('Resource not found')
         return;
     }
-    User.findById(id).then((user) => {
-		if (!user) {
-			res.status(404).send('Resource not found')
-		}
-		else {
-			const event = user.events.id(event_id)
+    
+    let userRole = {
+        username: req.body.username,
+        role: req.body.role
+    }
 
-			if (!event) {
-				res.status(404).send('Resource not found')
-			}
+    let add_event = null
+    let add_user = null
 
-			else {
-				res.send({ event })
-			}
-		}
-	})
-	.catch((error) => {
-		log(error)
-		res.status(500).send('Internal server error')
-	})
+    User.find({ username: userRole.username })
+    .then((userList) => {
+        let user = userList[0]
+        if (!user) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            let events = user.events
+            events.push(event_id)
+
+            User.updateOne({_id: id}, {$set: {events: events}}).then((user)=>{
+                if(!user){
+                    res.status(400).send()
+                }
+                add_user = user 
+            }).catch((error)=>{
+                log(error)
+                res.status(500).send('Internal Server Error')
+            })
+        }
+    })
+    .catch((error) => {
+        log(error)
+    })
+
+    Event.findById(event_id).then((event) => {
+        if (!event) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            event.userRoles.push(userRole)
+            event.save()
+            add_event = event
+        }
+    })
+    .catch((error) => {
+        log(error)
+        res.status(500).send('Internal server error')
+    })
+
+    res.send({add_event, add_user})
 })
+
+// router.route('/check-session').get((req, res)=>{
+//     if (env !== 'production' && USE_TEST_USER) { // test user on development environment.
+//         req.session.user = TEST_USER_ID;
+//         req.session.email = TEST_USER_EMAIL;
+//         res.send({ currentUser: TEST_USER_EMAIL })
+//         return;
+//     }
+
+//     if (req.session.user) {
+//         res.send({ currentUser: req.session.email });
+//     } else {
+//         res.status(401).send();
+//     }
+// })
 
 module.exports = router;

@@ -5,7 +5,7 @@ const log = console.log
 
 export const getUser = (homePage, app) => {
     const user_id = app.app.state.currentUser._id;
-    const url = `${API_HOST}/users/${user_id}`;
+    const url = `${API_HOST}/users/${user_id}/events`;
 
     fetch(url)
     .then((res) => {
@@ -18,7 +18,7 @@ export const getUser = (homePage, app) => {
     })
     .then((json) => {
         homePage.setState({
-            user: json,
+            user: json.user,
             eventsList: json.events
         })
     })
@@ -62,6 +62,7 @@ export const addEvent = (popComp) => {
             popComp.setState({
                 eventsList: json.user.events
             })
+            log(json.user.events)
         })
         .catch(error => {
             log(error)
@@ -90,6 +91,7 @@ export const deleteEvent = (homePage, eventID) => {
         homePage.setState({
             eventsList: json.user.events
         })
+        log(json.user.events)
     })
     .catch((error) => {
         log(error)

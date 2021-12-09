@@ -7,12 +7,15 @@ const log = console.log
 export const addUser = (register, app) => {
     const url = `${API_HOST}/users/add`;
 
+    if (register.state.password !== register.state.passwordConfirm) {
+        alert('Passwords do not match')
+    }
+
     const user = {
         username: register.state.userName,
         password: register.state.password,
         name: register.state.name,
         email: register.state.email,
-        role: 'general',
         events: []
     }
 

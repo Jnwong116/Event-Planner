@@ -21,14 +21,16 @@ const eventSchema = new Schema({
     userRoles: [Object]
 })
 
+const Event = mongoose.model('Event', eventSchema)
+
 const userSchema = new Schema({
     name: {type: String, require: true},
     email: {type: String, require: true},
     username: {type: String, require: true},
     password: {type: String, require: true},
-    events: [eventSchema]
+    events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 })
 
 const User = mongoose.model('User', userSchema)
 
-module.exports = User;
+module.exports = { User, Event };

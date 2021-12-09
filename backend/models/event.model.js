@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const Schema = mongoose.Schema
 
 const messageSchema = new Schema({
@@ -9,16 +8,15 @@ const messageSchema = new Schema({
 })
 
 const taskSchema = new Schema({
-    id: {type: String, required: true},
-    user: [Number],
+    users: [mongoose.ObjectId],
     status: {type: String},
     date: {type: Date, default: Date.now}
 })
 
 const eventSchema = new Schema({
-    id: {type: String, require: true},
     name: {type: String, require: true},
     style: {type: String, require: true},
     messages: [messageSchema],
-    tasks: [taskSchema]  
+    tasks: [taskSchema],
+    userRoles: [Object]
 })
