@@ -50,13 +50,8 @@ class HomePage extends React.Component {
         getUser(this);
     }
 
-    componentDidUpdate() {
-        console.log(this.props)
-    }
-
     render() {
         let popUpVisible = false;
-        console.log(this.props)
         
         return (
             <div> 
@@ -90,7 +85,7 @@ class HomePage extends React.Component {
                 backgroundColor: item.backgroundColor
             }}>
                                 <div onClick={() => {
-                                    window.location.href='/events/' + item.name;
+                                    window.location.href='/events/' + item._id;
                                 }}>
                                     <EventPreview id={item._id} name={item.name} backgroundColor={item.backgroundColor} />
                                     

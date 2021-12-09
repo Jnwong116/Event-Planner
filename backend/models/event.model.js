@@ -22,7 +22,3 @@ const eventSchema = new Schema({
     messages: [messageSchema],
     tasks: [taskSchema]  
 })
-
-const Event = mongoose.model('Event', eventSchema)
-
-module.exports = Event

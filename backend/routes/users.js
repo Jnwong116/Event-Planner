@@ -80,9 +80,7 @@ router.route('/:user_id/events').get((req, res)=>{
 Request body expects:
 {
     name,
-    style,
-    messages,
-    tasks
+    style
 }
 
 */
@@ -92,12 +90,23 @@ router.route('/:user_id/events').post((req, res)=>{
 		res.status(404).send('Resource not found')
 		return;  // so that we don't run the rest of the handler.
 	}
+
     User.findById(id).then((user)=>{
         if(!user){
             res.status(400).send('Resource not found')
         }else{
+            const event = {
+                name: req.body.name,
+                style: req.body.style,
+                messages: [],
+                tasks: [],
+                userRoles: [{
+                    username: user.username,
+                    role: "Admin"
+                }]
+            }
             let events = user.events
-            events.push(req.body)
+            events.push(event)
             User.updateOne({_id: id}, {$set: {events: events}}).then((user)=>{
                 if(!user){
                     res.status(400).send()
@@ -109,7 +118,6 @@ router.route('/:user_id/events').post((req, res)=>{
             res.send({event: user.events[user.events.length-1], user: user})
         }
     })
-
 })
 router.route('/:user_id/events/:event_id').delete((req, res)=>{
     const id = req.params.user_id
@@ -201,6 +209,36 @@ router.route('/add').post((req, res)=>{
     newUser.save()
         .then(()=>res.send(newUser))
         .catch(err=>res.status(400).json('Error: '+err))
+})
+
+router.route('/:user_id/events/:event_id').get((req, res) => {
+    const id = req.params.user_id
+    const event_id = req.params.event_id
+
+    if (!ObjectID.isValid(id) || !ObjectID.isValid(event_id)) {
+        res.status(404).send('Resource not found')
+        return;
+    }
+    User.findById(id).then((user) => {
+		if (!user) {
+			res.status(404).send('Resource not found')
+		}
+		else {
+			const event = user.events.id(event_id)
+
+			if (!event) {
+				res.status(404).send('Resource not found')
+			}
+
+			else {
+				res.send({ event })
+			}
+		}
+	})
+	.catch((error) => {
+		log(error)
+		res.status(500).send('Internal server error')
+	})
 })
 
 module.exports = router;
