@@ -3,8 +3,9 @@ import ENV from './../config.js'
 const API_HOST = ENV.api_host
 const log = console.log
 
-export const getUser = (homePage) => {
-    const url = `${API_HOST}/users`;
+export const getUser = (homePage, app) => {
+    const user_id = app.app.state.currentUser._id;
+    const url = `${API_HOST}/users/${user_id}`;
 
     fetch(url)
     .then((res) => {
@@ -17,8 +18,8 @@ export const getUser = (homePage) => {
     })
     .then((json) => {
         homePage.setState({
-            user: json[0],
-            eventsList: json[0].events
+            user: json,
+            eventsList: json.events
         })
     })
     .catch((error) => {

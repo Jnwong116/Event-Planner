@@ -47,12 +47,11 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        getUser(this);
+        getUser(this, this.props);
     }
 
     render() {
         let popUpVisible = false;
-        console.log(this.props)
         const {app} = this.props;
         return (
             <div> 

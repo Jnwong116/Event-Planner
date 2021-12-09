@@ -31,8 +31,6 @@ class Register extends React.Component{
                 <UserInfoForm
                 name = {this.state.name}
                 userName= {this.state.userName}
-                password= {this.state.password}
-                passwordConfirm= {this.state.passwordConfirm}
                 email= {this.state.email}
                 handleChange= {this.handleChange}
                 />

@@ -15,14 +15,12 @@ import './style.css';
 
 class UserInfoForm extends React.Component {
   render() {
-        // const {
-        //     name,
-        //     userName,
-        //     password,
-        //     confirmPassword,
-        //     email,
-        //     handleChange
-        // } = this.props;
+        const {
+            name,
+            userName,
+            email,
+            handleChange
+        } = this.props;
 
         return (
             <div>
@@ -33,7 +31,7 @@ class UserInfoForm extends React.Component {
                     name="name"
                     label="First and Last Name"
                     id="outlined"
-                    defaultValue=""
+                    defaultValue={this.props.name}
                     margin="normal"
                     onChange={this.props.handleChange}
                 />
@@ -46,7 +44,7 @@ class UserInfoForm extends React.Component {
                     placeholder="Username"
                     label="Username"
                     id="outlined"
-                    defaultValue=""
+                    defaultValue={this.props.userName}
                     margin="normal"
                     onChange={this.props.handleChange}
                 />
@@ -59,7 +57,7 @@ class UserInfoForm extends React.Component {
                     name="email"
                     label="Email"
                     id="outlined"
-                    defaultValue=""
+                    defaultValue={this.props.email}
                     margin="normal"
                     onChange={this.props.handleChange}
                 />

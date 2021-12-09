@@ -31,16 +31,14 @@ class EditProfile extends React.Component{
     
     render() {
         const { app } = this.props;
-        console.log(app.state)
 
         return (
             <div classname="">
                 <h1 class="header">Edit Profile</h1>
                 <UserInfoForm
-                    name = {this.state.userName}
-                    password = {this.state.password}
-                    passwordConfirm = {this.state.confirmPassword}
+                    name = {this.state.name}
                     email = {this.state.email}
+                    userName = {this.state.userName}
                     handleInputChange = {this.handleInputChange}
                 />
                 <Button

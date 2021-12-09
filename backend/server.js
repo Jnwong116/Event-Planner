@@ -40,6 +40,13 @@ app.use(
                                  }) : null
     })
 );
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
+
+
 app.use('/users', usersRouter)
 // Middleware for authentication of resources
 /*const authenticate = (req, res, next) => {

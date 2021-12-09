@@ -6,7 +6,7 @@ const log = console.log
 export const editUser = (editUser, app) => {
     console.log(app)
 
-    const user_id = app.app.state.currentUser._id;
+    const user_id = app.state.currentUser._id;
     const url = `${API_HOST}/users/${user_id}`;
     
     const fields = [
@@ -20,7 +20,6 @@ export const editUser = (editUser, app) => {
         method: "patch",
         body: JSON.stringify(fields),
         headers: {
-            Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json"
         }
     })
@@ -48,6 +47,7 @@ export const editUser = (editUser, app) => {
 export const loadUserInfo = (editUser, app) => {
     log(app)
     const user_id = app.app.state.currentUser._id;
+    log(user_id)
     const url = `${API_HOST}/users/${user_id}`;
 
     fetch(url)
