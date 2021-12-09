@@ -13,7 +13,6 @@ class EventPage extends React.Component {
         user: "",
         id:"",
         name:"",
-        style:"",
         users:[],
         messages:[],
         tasks:[]
@@ -58,7 +57,7 @@ class EventPage extends React.Component {
         let urlParse = window.location.href.split("/")  //gets last part of url
         let eventID = urlParse[urlParse.length-1]
         console.log(eventID)
-        // getEventInfo(this, this.props, eventID)
+        getEventInfo(this, this.props, eventID)
     }
     render() {
         const {app} = this.props;
