@@ -7,12 +7,13 @@ import plus from './../../images/plus.png';
 // import EventCreationPopup from "../EventCreationPopup";
 //import Button from "@material-ui/core/Button";
 import {getUser, addEvent, deleteEvent} from "../../actions/homePage"
-import {Input, Button} from "reactstrap";
+import {Input, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "reactstrap";
 import './style.css';
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
+        this.toggle = this.toggle.bind(this);
         this.props.history.push("/dashboard");
     }
     
@@ -20,9 +21,16 @@ class HomePage extends React.Component {
         user: "",
         eventsList: [],
         eventName: "",
-        eventColor: ""
+        eventColor: "",
+        dropdownOpen: false,
+        popupOpen: false
+
     }
-   
+    toggle() {
+        this.setState(prevState => ({
+          dropdownOpen: !prevState.dropdownOpen
+        }));
+    }
     handleInputChange = event => {
         const target = event.target;
         const value = target.value;
@@ -54,15 +62,33 @@ class HomePage extends React.Component {
         let popUpVisible = false;
         const {app} = this.props;
         return (
-            <div> 
+            <div className="card text-white bg-dark">
+                <div className="card-header mb-5">
+                    <div className="row">
+
+                        <div className="col userProfile">
+                        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                            <DropdownToggle caret>
+                                <span className="greeting">Hello {this.state.user.username}</span>
+                                <img src={userProfileIcon} alt="user profile" className="userIcon"></img>
+                            </DropdownToggle>
+                            <DropdownMenu>
+                            <DropdownItem onClick={()=>{app.setState({dashPage: 1})}}>Edit User</DropdownItem>
+                            {/* <DropdownItem disabled>Action</DropdownItem>
+                            <DropdownItem>Another Action</DropdownItem>
+                            <DropdownItem divider />
+                            <DropdownItem>Another Action</DropdownItem> */}
+                            </DropdownMenu>
+                        </Dropdown>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div className="card-body bg-dark"> 
                 <div className="profile">
                 <h1 className="grid-header">Your Events</h1>
-                    <Button onClick={()=>{app.setState({dashPage: 1})}}>
-                        <button className="userProfile">
-                            <span className="greeting">Hello {this.state.user.username}</span>
-                            <img src={userProfileIcon} alt="user profile" className="userIcon"></img>
-                        </button>
-                    </Button>
+                    
                 </div>
                 
                 <div className="container">  
@@ -73,7 +99,7 @@ class HomePage extends React.Component {
                             <div className="col-3">
                                 <div className="card pu">
                                     <div className="card-header" style={{
-                backgroundColor: item.backgroundColor
+                backgroundColor: item.style
             }}>
                                         <button onClick={() => {
                                             deleteEvent(this, item._id)
@@ -82,11 +108,9 @@ class HomePage extends React.Component {
                                         </button>
                                     </div>
                                     <div className="card-body" style={{
-                backgroundColor: item.backgroundColor
+                backgroundColor: item.style
             }}>
-                                <div onClick={() => {
-                                    window.location.href='/events/' + item._id;
-                                }}>
+                                <div onClick={()=>{app.setState({dashPage: 2, curEvent: item._id})}}>
                                     <EventPreview id={item._id} name={item.name} backgroundColor={item.backgroundColor} />
                                     
                                 </div>
@@ -101,11 +125,8 @@ class HomePage extends React.Component {
 
                 <div className="row mt-5">
                     <div className="col">
-                    <button className="create-button" onClick={() => {
-                    this.showPopup(popUpVisible);
-                }}>
-                        <img src={plus} alt="Create new event button"></img>
-                </button>
+                    
+                {this.state.popupOpen ? 
                 <div className="card pu">
                     <div className="card-body pu-body">
                     
@@ -140,9 +161,17 @@ class HomePage extends React.Component {
                         variant="contained"
                         >Create</Button>
                     </div>  
+                </div> : (<div></div>)}
                 </div>
                 </div>
                 </div>
+                </div>
+                <div className="card-footer bg-dark mt-5">
+                    <button className="create-button" onClick={() => {
+                        this.setState({popupOpen: !this.state.popupOpen})
+                        }}>
+                        <img src={plus} alt="Create new event button"></img>
+                    </button>
                 </div>
             </div>
         )

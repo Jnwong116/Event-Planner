@@ -1,10 +1,10 @@
 .msgtitle {
     text-align: center;
-    color: grey;
+    color: white;
     font-size: 32px;
     padding-bottom: 10px;
     padding-top: 10px;
-    background-color:#fac2ff;
+    background-color: #2f2fa2;
     font-weight: 200;
 }
 .messages {

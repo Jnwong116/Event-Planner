@@ -6,7 +6,7 @@ class UserList extends React.Component {
     
     render() {
         let {
-            users, deleteUser, insertUser
+            users, deleteUser, insertUser, popupOpen
         } = this.props;
         return(
             <div className="userbox">
@@ -18,8 +18,9 @@ class UserList extends React.Component {
                         return (<User  id={i} name={item.name} role={item.role} deleteUser={deleteUser} />)
                     })
                 }
-                </div>
-                <AddUser insertUser={insertUser}/>
+                </div>{ popupOpen ? 
+                <AddUser insertUser={insertUser}/> : (<div></div>)
+                }
             </div>
         )
     }
