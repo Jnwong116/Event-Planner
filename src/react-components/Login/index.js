@@ -69,11 +69,18 @@ class Login extends React.Component {
         
       <div className="card text-center card-main">
         <div className="card-header header-bg">
-          <h1 className="Title">
-            Login
-          </h1>
+          <div className="profile">
+            <Link  to={"./../register"}>
+              <Button className="userProfile" onClick={()=>{app.setState({dashPage: 3})}}>
+                  <span >Register</span>
+              </Button>
+            </Link>
+          </div>
         </div>
         <div className="card-body cardb-bg cyber-border">
+          <h1 className="Title">
+              Login
+          </h1>
         <form>
         
        
