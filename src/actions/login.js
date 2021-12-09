@@ -34,7 +34,7 @@ export const login =  (loginComp, app) => {
         if (json.currentUser !== undefined) {
             app.setState({ 
                 currentUser: json.currentUser,
-                nextPage: "/home"
+                nextPage: "/dashboard"
             });
             
         }

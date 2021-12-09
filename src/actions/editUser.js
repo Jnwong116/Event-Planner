@@ -4,9 +4,9 @@ const API_HOST = ENV.api_host
 const log = console.log
 
 export const editUser = (editUser, app) => {
-    log(app.state.currentUser)
+    console.log(app)
 
-    const user_id = app.state.currentUser._id;
+    const user_id = app.app.state.currentUser._id;
     const url = `${API_HOST}/users/${user_id}`;
     
     const fields = [
@@ -36,7 +36,7 @@ export const editUser = (editUser, app) => {
     })
     .then((json) => {
         app.setState({ currentUser: json })
-        window.location.href = "/home"
+        window.location.href = "/dashboard"
         return;
     })
     .catch((error) => {
@@ -46,7 +46,8 @@ export const editUser = (editUser, app) => {
 }
 
 export const loadUserInfo = (editUser, app) => {
-    const user_id = app.state.currentUser._id;
+    log(app)
+    const user_id = app.app.state.currentUser._id;
     const url = `${API_HOST}/users/${user_id}`;
 
     fetch(url)

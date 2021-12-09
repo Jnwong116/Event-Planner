@@ -25,26 +25,37 @@ class App extends React.Component {
 
   componentDidUpdate() {
     console.log(this.state.currentUser)
-    if (this.state.currentUser != null) {
+    /*if (this.state.currentUser != null) {
       window.location.href = this.state.nextPage;
-    }
+    }*/
   }
 
   state = {
     currentUser: null,
+    dashPage: 0,
     nextPage: ""
   }
 
   render() {
-    const { currentUser }  = this.state;
-
+    const { currentUser , dashPage}  = this.state;
+    console.log(this.state)
     return (
       <div class="row h-100 w-100">
         <div class="col-sm-12 my-auto">
         <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            <Route exact path='/' render={ props => 
+            <Route
+                exact path={["/", "/login", "/dashboard"] /* any of these URLs are accepted. */ }
+                render={ props => (
+                    <div className="app">
+                        { /* Different componenets rendered depending on if someone is logged in. */}
+                        {!currentUser ? <Login {...props} app={this} /> : (dashPage==0 ? <HomePage {...props} app={this}/>:<EditProfile {...props} app={this}/>)}
+                    </div>                   // ... spread operator - provides all of the props in the props object
+                    
+                )}
+            />
+            {/* <Route exact path='/' render={ props => 
                             (<Welcome {...props} app={this}/>)}/>
             <Route exact path='/Login' render={props => 
                             (<Login {...props} app={this}/>)}/>
@@ -55,7 +66,7 @@ class App extends React.Component {
             <Route exact path='/events/:event_id' render={props => 
                             (<EventPage {...props} app={this}/>)}/>   
             <Route exact path='/EditProfilePanel' render={props => 
-                            (<EditProfile {...props} app={this}/>)}/>                          
+            (<EditProfile {...props} app={this}/>)}/>*/                           }
           </Switch>
         </BrowserRouter>
       </div>

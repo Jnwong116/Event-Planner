@@ -26,7 +26,7 @@ let users = [
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.props.history.push("/Login");
+    this.props.history.push("/login");
   }
 
   state = {
