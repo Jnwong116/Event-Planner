@@ -2,11 +2,11 @@ import React from 'react';
 
 import UserInfoForm from './../UserInfoForm';
 import Button from "@material-ui/core/Button";
+import { editUser, loadUserInfo } from "../../actions/editUser"
 
 import './style.css'
 
 class EditProfile extends React.Component{
-    
     state = {
         userName: "",
         password: "",
@@ -24,8 +24,15 @@ class EditProfile extends React.Component{
             [name]: value
         })
     }
+
+    componentDidMount() {
+        loadUserInfo(this, this.props)
+    }
     
     render() {
+        const { app } = this.props;
+        console.log(app.state)
+
         return (
             <div classname="">
                 <h1 class="header">Edit Profile</h1>
@@ -39,8 +46,7 @@ class EditProfile extends React.Component{
                 <Button
                     onClick={() => {
                         // Edits the user's info in the server
-                        console.log('Edited user');
-                        window.location.href = '/home'
+                        editUser(this, app)
                     }}
                     className="edit_button"
                     variant="contained"

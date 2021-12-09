@@ -8,14 +8,12 @@ export const validateLoginForm = form => {
         username: form.state.username,
         password: form.state.password
     }
-    return user.username.length > 0 && user.password.length > 0;
+    return user.username.length > 0 || user.password.length > 0;
 }
 
 // A function to send a POST request with the user to be logged in
 export const login =  (loginComp, app) => {
     // Create our request constructor with all the parameters we need
-    console.log(loginComp)
-    console.log(app)
     const request = new Request(`${API_HOST}/users/login`, {
         method: "post",
         body: JSON.stringify(loginComp.state),
@@ -34,8 +32,11 @@ export const login =  (loginComp, app) => {
     })
     .then(json => {
         if (json.currentUser !== undefined) {
-            loginComp.setState({ currentUser: json.currentUser });
-            window.location.href = "/home"
+            app.setState({ 
+                currentUser: json.currentUser,
+                nextPage: "/home"
+            });
+            
         }
     })
     .catch(error => {

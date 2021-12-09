@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-const prod = {
-    env: 'production',
-    api_host: ''
-};
-
-const dev = {
-    env: 'development',
-    api_host: 'http://localhost:5000',
-}
-
-=======
 /* React environment configuration (frontend only) */
 // Do not store any sensitive data/secret values/API keys here - it is available in the browser to anyone.
 
@@ -25,5 +13,4 @@ const dev = {
 };
 
 // export the appropriate environment
->>>>>>> 0612f74ab5e8b93b3557dab1be5ca82dcf76de21
 export default process.env.NODE_ENV === 'production' ? prod : dev;

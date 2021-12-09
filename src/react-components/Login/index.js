@@ -24,6 +24,11 @@ let users = [
 
 /* Component for the Login page */
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.history.push("/Login");
+  }
+
   state = {
     username: "",
     password: "",
@@ -59,7 +64,7 @@ class Login extends React.Component {
 
   
   render() {
-    const {app} = this.props
+    const { history, app } = this.props
     return (
         
       <div className="card text-center card-main">

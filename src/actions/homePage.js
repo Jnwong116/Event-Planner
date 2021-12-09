@@ -90,7 +90,7 @@ export const deleteEvent = (homePage, eventID) => {
             eventsList: json.user.events
         })
     })
-    .catch(error => {
+    .catch((error) => {
         log(error)
     })
 }

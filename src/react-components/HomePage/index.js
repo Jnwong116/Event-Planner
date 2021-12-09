@@ -11,6 +11,11 @@ import {Input, Button} from "reactstrap";
 import './style.css';
 
 class HomePage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.history.push("/home");
+    }
+    
     state = {
         user: "",
         eventsList: [],
@@ -43,11 +48,16 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         getUser(this);
-        
+    }
+
+    componentDidUpdate() {
+        console.log(this.props)
     }
 
     render() {
         let popUpVisible = false;
+        console.log(this.props)
+        
         return (
             <div> 
                 <div className="profile">

@@ -5,11 +5,15 @@ const { ObjectID } = require('mongodb')
 
 let User = require('../models/user.model')
 
+
+// Gets all users
 router.route('/').get((req, res)=>{
     User.find()
         .then(users=>res.json(users))
         .catch(err=>res.status(400).json('Error: '+err))
 })
+
+// Gets user by ID
 router.route('/:user_id').get((req, res)=>{
     const id = req.params.user_id
     if (!ObjectID.isValid(id)) {
@@ -25,6 +29,38 @@ router.route('/:user_id').get((req, res)=>{
     })
 
 })
+
+// Edits user info
+router.route('/:user_id').patch((req, res) => {
+    const id = req.params.user_id
+    if (!ObjectID.isValid(id)) {
+		res.status(404).send('Resource not found')
+		return;  // so that we don't run the rest of the handler.
+	}
+    
+    const fieldsToUpdate = {}
+    req.body.map((change) => {
+		const propertyToChange = change.path.substr(1)
+		fieldsToUpdate[propertyToChange] = change.value
+	})
+
+    User.findOneAndUpdate({_id: id}, {$set: fieldsToUpdate}, {new: true, useFindAndModify: false})
+    .then((user) => {
+        if (!user) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            res.send(user)
+        }
+    })
+    .catch((error) => {
+        log(error)
+        res.status(400).send('Bad Request')
+    })
+
+})
+
+
 router.route('/:user_id/events').get((req, res)=>{
     const id = req.params.user_id
     if (!ObjectID.isValid(id)) {
@@ -89,7 +125,7 @@ router.route('/:user_id/events/:event_id').delete((req, res)=>{
             let events = user.events
             let found = null
             for(let i=0; i<events.length; i++){
-                if(events[i]._id == event_id){
+                if(events[i]._id === event_id){
                     found = events[i]
                     events.splice(i, 1)
                 }
@@ -118,7 +154,7 @@ router.route('/login').post((req, res)=>{
         .then(user => {
             // Add the user's id to the session.
             // We can check later if this exists to ensure we are logged in.
-            if(user.password == password){
+            if(user.password === password){
                 console.log(req.session)
                 req.session.user = user._id;
                 req.session.username = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
@@ -158,11 +194,12 @@ router.route('/check-session').get((req, res)=>{
         res.status(401).send();
     }
 })
+
 router.route('/add').post((req, res)=>{
     const newUser = new User(req.body)
 
     newUser.save()
-        .then(()=>res.json('User added!'))
+        .then(()=>res.send(newUser))
         .catch(err=>res.status(400).json('Error: '+err))
 })
 

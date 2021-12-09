@@ -1,6 +1,7 @@
 import React from "react";
 import UserInfoForm from "../UserInfoForm";
 import {Button} from "reactstrap";
+import {addUser} from "../../actions/register"
 //import "./styles.css";
 // TODO: finish this.
 class Register extends React.Component{
@@ -21,6 +22,8 @@ class Register extends React.Component{
     };
 
     render() {
+        const { app } = this.props
+
         return(
             <div className="card text-center card-main">
             <div className="card-header header-bg">
@@ -37,8 +40,7 @@ class Register extends React.Component{
                     onClick={() => {
                         // Checks if the user already exists in the server
                         // If not creates a new user and goes to the next page
-                        console.log('Registered new user');
-                        window.location.href = '/home'
+                        addUser(this, app)
                     }}
                     className="register_button"
                     variant="contained"
