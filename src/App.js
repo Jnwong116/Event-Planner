@@ -33,6 +33,7 @@ class App extends React.Component {
   state = {
     currentUser: null,
     dashPage: 0,
+    curEvent: 0,
     nextPage: ""
   }
 
@@ -41,7 +42,7 @@ class App extends React.Component {
     console.log(this.state)
     return (
       <div class="row h-100 w-100">
-        <div class="col-sm-12 my-auto">
+        <div class="col-sm-12">
         <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
@@ -50,7 +51,7 @@ class App extends React.Component {
                 render={ props => (
                     <div className="app">
                         { /* Different componenets rendered depending on if someone is logged in. */}
-                        {!currentUser ? <Login {...props} app={this} /> : (dashPage==0 ? <HomePage {...props} app={this}/>:<EditProfile {...props} app={this}/>)}
+                        {!currentUser ? <Login {...props} app={this} /> : (dashPage==0 ? <HomePage {...props} app={this}/>: dashPage==1 ? <EditProfile {...props} app={this}/> : <EventPage {...props} app={this}/>)}
                     </div>                   // ... spread operator - provides all of the props in the props object
                     
                 )}

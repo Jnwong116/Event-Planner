@@ -114,7 +114,7 @@ class Login extends React.Component {
         >
           Sign In
         </Button>
-        <Link  to={"./../Register"}>
+        <Link  to={"./../home"}>
           <Button 
             className="button-bg"
             variant="contained"

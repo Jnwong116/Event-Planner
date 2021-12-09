@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UserInfoForm from './../UserInfoForm';
-import Button from "@material-ui/core/Button";
+import { Button } from "reactstrap";
 import { editUser, loadUserInfo } from "../../actions/editUser"
 
 import './style.css'
@@ -33,22 +33,35 @@ class EditProfile extends React.Component{
         const { app } = this.props;
 
         return (
-            <div classname="">
-                <h1 class="header">Edit Profile</h1>
-                <UserInfoForm
-                    name = {this.state.name}
-                    email = {this.state.email}
-                    userName = {this.state.userName}
-                    handleInputChange = {this.handleInputChange}
-                />
-                <Button
-                    onClick={() => {
-                        // Edits the user's info in the server
-                        editUser(this, app)
-                    }}
-                    className="edit_button"
-                    variant="contained"
-                >Save</Button>
+            <div>
+                
+                
+                <div className="card text-white">
+                    <div className="card-header bg-dark">
+                        <div className="profile">
+                            <Button className="userProfile" onClick={()=>{app.setState({dashPage: 0})}}>
+                                <span >Back to Dashboard</span>
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="card-body bg-dark">
+                        <h1 class="header">Edit Profile</h1>
+                        <UserInfoForm
+                            name = {this.state.name}
+                            email = {this.state.email}
+                            userName = {this.state.userName}
+                            handleInputChange = {this.handleInputChange}
+                        />
+                        <Button
+                            onClick={() => {
+                                // Edits the user's info in the server
+                                editUser(this, app)
+                            }}
+                            className="edit_button"
+                            variant="contained"
+                        >Save</Button>
+                    </div>
+                </div>
             </div>
         )
     }

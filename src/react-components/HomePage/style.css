@@ -19,9 +19,14 @@ button {
 }
 
 .userProfile {
-    position: absolute;
-    right: 30px;
-    top: 20px;
+    position: right;
+    text-align: right;
+    color: white;
+    font-size: 12pt;
+}
+.editUser {
+    position: left;
+
     text-align: center;
     color: white;
     font-size: 12pt;
