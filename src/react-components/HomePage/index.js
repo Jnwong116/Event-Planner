@@ -13,7 +13,7 @@ import './style.css';
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
-        this.props.history.push("/home");
+        this.props.history.push("/dashboard");
     }
     
     state = {
@@ -52,17 +52,18 @@ class HomePage extends React.Component {
 
     render() {
         let popUpVisible = false;
-        
+        console.log(this.props)
+        const {app} = this.props;
         return (
             <div> 
                 <div className="profile">
                 <h1 className="grid-header">Your Events</h1>
-                    <Link to={"./../EditProfilePanel"}>
+                    <Button onClick={()=>{app.setState({dashPage: 1})}}>
                         <button className="userProfile">
                             <span className="greeting">Hello {this.state.user.username}</span>
                             <img src={userProfileIcon} alt="user profile" className="userIcon"></img>
                         </button>
-                    </Link>
+                    </Button>
                 </div>
                 
                 <div className="container">  
