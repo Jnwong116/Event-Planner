@@ -1,7 +1,12 @@
 /* Top-level shared styles */
 
 html, body, #app, #app, #root {
-  height: 100%
+  height: 100%;
+
+}
+.centered{
+  position: relative;
+  top: 30%;
 }
 
 #root{

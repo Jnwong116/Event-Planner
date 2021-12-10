@@ -13,6 +13,7 @@ import HomePage from './react-components/HomePage';
 import EditProfile from './react-components/EditProfilePanel';
 import EventPage from './react-components/EventPage';
 import { checkSession } from './actions/login';
+import asd from "./images/3.svg";
 
 class App extends React.Component {
 
@@ -43,21 +44,21 @@ class App extends React.Component {
     console.log(this.state)
     return (
       <div class="row h-100 w-100">
-        <div class="col-sm-12">
+        <div class="col-sm-12 centered">
         <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route
                 exact path={["/", "/login", "/register", "/dashboard"] /* any of these URLs are accepted. */ }
                 render={ props => (
-                    <div className="app">
+                    <div className="app ">
                         { /* Different componenets rendered depending on if someone is logged in. */}
                         {!currentUser ? (dashPage==3 ? <Register {...props} app={this} /> : <Login {...props} app={this}/>): (dashPage==0 ? <HomePage {...props} app={this}/>: (dashPage==1 ? <EditProfile {...props} app={this}/> : (dashPage==2 ? <EventPage {...props} app={this}/> : <div></div>)))}
                     </div>                   // ... spread operator - provides all of the props in the props object
                     
                 )}
             />
-            <Route render={() => <div>404 Not found</div>} />
+            <Route render={() => <div><img src={asd} width="1300" height="1300"/></div>} />
             {/* <Route exact path='/' render={ props => 
                             (<Welcome {...props} app={this}/>)}/>
             <Route exact path='/Login' render={props => 

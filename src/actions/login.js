@@ -78,7 +78,7 @@ export const logout = (app) => {
     fetch(url)
         .then(res => {
             console.log(app)
-            app.props.app.state.setState({
+            app.setState({
                 currentUser: null,
                 message: { type: "", body: "" }
             });
