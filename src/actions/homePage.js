@@ -62,7 +62,6 @@ export const addEvent = (popComp) => {
             popComp.setState({
                 eventsList: json.user.events
             })
-            log(json.user.events)
         })
         .catch(error => {
             log(error)

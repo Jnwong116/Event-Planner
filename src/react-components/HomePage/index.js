@@ -79,7 +79,6 @@ class HomePage extends React.Component {
                 <div className="row mb-5">  
                     {
                         this.state.eventsList.map((item, i) => {
-                            console.log(item)
                             return (
                             <div className="col-3">
                                 <div className="card pu">
