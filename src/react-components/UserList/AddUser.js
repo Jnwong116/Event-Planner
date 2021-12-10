@@ -1,5 +1,7 @@
 import React from "react";
 import { Input, Button } from "reactstrap";
+import { addUser } from "../../actions/eventPage";
+
 import './style.css';
 
 class AddUser extends React.Component {
@@ -10,14 +12,11 @@ class AddUser extends React.Component {
     insertUserWrap = (insertUser)=>{
         let username = document.getElementById('username').value
         let userrole = document.getElementById('userrole').value
-        console.log(username)
-        console.log(userrole)
-        console.log(this.props)
-        this.props.insertUser(username, userrole)
+        addUser(this.props.eventPage, this.props.app, username, userrole)
     }
     render() {
         const {
-            insertUser
+            eventPage, app
         } = this.props;
         return(
             <div className="card bg-dark text-white">
@@ -34,7 +33,7 @@ class AddUser extends React.Component {
                             {/* <input id="userrole" type="text"></input> */}
                         </div>
                         <br/>
-                        <Button onClick={()=>this.insertUserWrap(insertUser)}>Add User</Button>
+                        <Button onClick={()=>this.insertUserWrap()}>Add User</Button>
                     </div>
                 </div>
             </div>

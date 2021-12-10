@@ -2,11 +2,12 @@ import React from "react";
 import User from "./User";
 import AddUser from "./AddUser";
 import './style.css';
+
 class UserList extends React.Component {
     
     render() {
         let {
-            users, deleteUser, insertUser, popupOpen
+            users, popupOpen, eventPage, app
         } = this.props;
         return(
             <div className="userbox">
@@ -15,11 +16,11 @@ class UserList extends React.Component {
                 <div className="messages">
                 {
                     users.map(function(item, i){
-                        return (<User  id={i} name={item.name} role={item.role} deleteUser={deleteUser} />)
+                        return (<User  id={i} name={item.username} role={item.role} eventPage={eventPage} app={app}/>)
                     })
                 }
                 </div>{ popupOpen ? 
-                <AddUser insertUser={insertUser}/> : (<div></div>)
+                <AddUser eventPage={eventPage} app={app}/> : (<div></div>)
                 }
             </div>
         )

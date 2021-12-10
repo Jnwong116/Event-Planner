@@ -1,6 +1,7 @@
 import React from "react";
 import './style.css';
 import deleteIcon from '../../images/delete_icon.png';
+import { deleteUser } from "../../actions/eventPage";
 
 class User extends React.Component {
     textFormat(input){
@@ -9,9 +10,8 @@ class User extends React.Component {
 
     render() {
         const {
-            id, name, role, deleteUser
+            name, role, eventPage, app
         } = this.props;
-        console.log(id)
         return(
             <div className="user">
                 <div>
@@ -24,7 +24,7 @@ class User extends React.Component {
                     </span>
                 </div>
                 <div>
-                    <img src={deleteIcon} alt="delete icon" className="deleteIcon" onClick={deleteUser(this.props.id)}></img>
+                    <img src={deleteIcon} alt="delete icon" className="deleteIcon" onClick={() => {deleteUser(eventPage, app, name)}}></img>
                 </div>
             </div>
         )
