@@ -125,6 +125,49 @@ router.route('/:user_id').patch((req, res) => {
 
 })
 
+//Get messages from event
+router.route('/events/:event_id/messages').get((req, res)=>{
+    const event_id = req.params.event_id
+    if (!ObjectID.isValid(event_id)) {
+		res.status(404).send('Resource not found')
+		return;  // so that we don't run the rest of the handler.
+	}
+    Event.findById(event_id).then((event) => {
+        res.send({messages:event.messages})
+    }).catch((err)=>{
+        res.status(400).send(err)
+    })
+})
+
+//Add message to event
+router.route('/events/:event_id/messages').post((req, res)=>{
+    const event_id = req.params.event_id
+    if (!ObjectID.isValid(event_id)) {
+		res.status(404).send('Resource not found')
+		return;  // so that we don't run the rest of the handler.
+	}
+    Event.findById(event_id).then((event) => {
+        let curMsgs = event.messages
+        console.log(curMsgs)
+        curMsgs.push(req.body)
+        console.log(curMsgs)
+        Event.updateOne({_id: event_id}, {$set: {messages: curMsgs}}).then((event)=>{
+            if(!event){
+                res.status(400).send()
+            }else{
+                res.send({messages:curMsgs})
+            }
+        }).catch((error)=>{
+            log(error)
+            res.status(500).send('Internal Server Error')
+        })
+
+        
+    }).catch((err)=>{
+        res.status(400).send(err)
+    })
+})
+
 // Get all events
 router.route('/:user_id/events').get((req, res)=>{
     const id = req.params.user_id

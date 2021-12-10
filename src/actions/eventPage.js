@@ -3,7 +3,67 @@ import ENV from './../config.js'
 const API_HOST = ENV.api_host
 const log = console.log
 
+export const loadMessages = (eventPage, app)=>{
+    const eventID = app.app.state.curEvent
+    // log(eventID)
+    const url = `${API_HOST}/users/events/${eventID}/messages`;
 
+    fetch(url)
+    .then((res) => {
+        if (res.status === 200) {
+            return res.json()
+        }
+        else {
+            alert('Could not get messages')
+        }
+    })
+    .then((json) => {
+        console.log("getting messages")
+        eventPage.setState({
+            messages: json.messages
+        })
+
+    })
+    .catch((error) => {
+        log(error)
+    })
+}
+export const sendMessage = (eventPage, app)=>{
+    const eventID = app.app.state.curEvent
+    // log(eventID)
+    const url = `${API_HOST}/users/events/${eventID}/messages`;
+    console.log(eventPage)
+    const messageObj = {
+        content: eventPage.state.curMessage,
+        sender: eventPage.props.app.state.currentUser.name
+    }
+
+    const request = new Request(url, {
+        method: "post",
+        body: JSON.stringify(messageObj),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    fetch(request)
+    .then((res) => {
+        if (res.status === 200) {
+            return res.json()
+        }
+        else {
+            alert('Could not send message')
+        }
+    })
+    .then((json) => {
+        console.log(json)
+
+    })
+    .catch((error) => {
+        log(error)
+    })
+}
 export const getEventInfo = (eventPage, app) => {
     const eventID = app.app.state.curEvent
     // log(eventID)

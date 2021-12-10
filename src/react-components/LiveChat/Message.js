@@ -11,7 +11,7 @@ class Message extends React.Component {
         } = this.props;
 
         return(
-            <div className="message">
+            <div className="message msg-bg">
                 <div className="sender">
                     {this.textFormat(sender)}
                 </div>
