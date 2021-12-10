@@ -1,7 +1,7 @@
 # team40
 
 ## Third Party Libraries
-We used react
+We used react, express, mongoDB, and nodeJS.
 
 ### How To Use
 The general user will be able to create a new account via the register button and filling out the required information. 
