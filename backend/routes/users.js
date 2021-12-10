@@ -5,7 +5,6 @@ const { ObjectID } = require('mongodb')
 
 let {User, Event} = require('../models/user.model')
 
-
 // Gets all users
 router.route('/').get((req, res)=>{
     User.find()
@@ -13,14 +12,61 @@ router.route('/').get((req, res)=>{
         .catch(err=>res.status(400).json('Error: '+err))
 })
 router.route('/check-session').get((req, res)=>{
-    console.log(req.session.user)
-    
+    console.log("check session")
+    console.log(req.session)
 
-    if (req.session.user) {
+    if (req.session) {
         res.status(200).send({ currentUser: req.session.email });
     } else {
         res.status(401).send();
     }
+})
+
+//Login
+router.route('/login').post((req, res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // log(email, password);
+    // Use the static method on the User model to find a user
+    // by their email and password
+    User.findOne({username: username})
+        .then(user => {
+            // Add the user's id to the session.
+            // We can check later if this exists to ensure we are logged in.
+            if(user.password === password){
+                
+                req.session.email = user.email;
+                req.session._id = user._id;
+                req.session.user = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
+                console.log("login")
+                console.log(req.session)
+                res.send({ currentUser: user })
+                return
+            }else{
+                res.status(401).send()
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).send()
+        });
+})
+
+// A route to logout a user
+router.route('/logout').get((req, res)=>{
+    // Remove the session
+    console.log("logout")
+    console.log(req.session)
+    req.session.destroy(error => {
+        if (error) {
+            res.status(500).send(error);
+        } else {
+            console.log(req.session)
+            res.send()
+        }
+    });
+    
 })
 
 // Gets user by ID
@@ -217,50 +263,6 @@ router.route('/:user_id/events/:event_id').delete((req, res)=>{
             
         }
     })
-})
-
-//Login
-router.route('/login').post((req, res)=>{
-    const username = req.body.username;
-    const password = req.body.password;
-
-    // log(email, password);
-    // Use the static method on the User model to find a user
-    // by their email and password
-    User.findOne({username: username})
-        .then(user => {
-            // Add the user's id to the session.
-            // We can check later if this exists to ensure we are logged in.
-            if(user.password === password){
-                
-                req.session.email = user.email;
-                req.session._id = user._id;
-                req.session.user = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
-                console.log(req.session)
-                res.send({ currentUser: user })
-            }else{
-                res.status(401).send()
-            }
-        })
-        .catch(error => {
-            console.log(error)
-            res.status(400).send()
-        });
-})
-
-// A route to logout a user
-router.route('/logout').get((req, res)=>{
-    // Remove the session
-    console.log(req.session)
-    req.session.destroy(error => {
-        if (error) {
-            res.status(500).send(error);
-        } else {
-            console.log(req.session)
-            res.send()
-        }
-    });
-    
 })
 
 // Get a specific event

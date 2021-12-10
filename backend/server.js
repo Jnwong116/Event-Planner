@@ -1,9 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const env = process.env.NODE_ENV 
-require('dotenv').config()
 
+require('dotenv').config()
+const env = process.env.NODE_ENV 
 const app = express()
 const port = process.env.PORT || 5000
 
@@ -23,8 +23,10 @@ const usersRouter = require('./routes/users')
 
 
 const session = require("express-session");
+const MongoStore = require('connect-mongo') // to store session information on the database in production
 
 // Create a session and session cookie
+console.log(env)
 app.use(
     session({
         secret: process.env.SESSION_SECRET || "our hardcoded secret", // make a SESSION_SECRET environment variable when deploying (for example, on heroku)
@@ -35,8 +37,9 @@ app.use(
             httpOnly: true
         },
         // store the sessions on the database in production
+        
         store: env === 'production' ? MongoStore.create({
-                                                mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/StudentAPI'
+                                                mongoUrl: process.env.ATLAS_URI || 'mongodb://localhost:27017/StudentAPI'
                                  }) : null
     })
 );
