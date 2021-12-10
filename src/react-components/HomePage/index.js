@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import EventPreview from "./../EventPreview";
 import userProfileIcon from './../../images/user.png';
 import redX from './../../images/delete_icon.png';
@@ -42,27 +41,12 @@ class HomePage extends React.Component {
         })
     };
 
-    showPopup = (visibility) => {
-        // let popup = document.getElementById('popup');
-
-        // if (!visibility) {
-        //     popup.style.visibility = "visible";
-        //     visibility = true;
-        // }
-        // else {
-        //     popup.style.visibility = "hidden";
-        //     visibility = false;
-        // }
-        
-    }
-
     componentDidMount() {
         getUser(this, this.props);
         checkSession(this);
     }
 
     render() {
-        let popUpVisible = false;
         const {app} = this.props;
         return (
             <div className="card text-white bg-dark">

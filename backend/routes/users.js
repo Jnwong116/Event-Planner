@@ -277,18 +277,17 @@ router.route('/events/:event_id').get((req, res) => {
             res.status(400).send('Resource not found')
         }
         else {
-            res.send( event )
+            res.send({event})
         }
     })
     
 })
 
 // Adds user to an event
-router.route('/:user_id/events/:event_id/addUser').post((req, res) => {
-    const id = req.params.user_id
+router.route('/events/:event_id/addUser').post((req, res) => {
     const event_id = req.params.event_id
 
-    if (!ObjectID.isValid(id) || !ObjectID.isValid(event_id)) {
+    if (!ObjectID.isValid(event_id)) {
         res.status(404).send('Resource not found')
         return;
     }
@@ -297,9 +296,6 @@ router.route('/:user_id/events/:event_id/addUser').post((req, res) => {
         username: req.body.username,
         role: req.body.role
     }
-
-    let add_event = null
-    let add_user = null
 
     User.find({ username: userRole.username })
     .then((userList) => {
@@ -311,11 +307,72 @@ router.route('/:user_id/events/:event_id/addUser').post((req, res) => {
             let events = user.events
             events.push(event_id)
 
-            User.updateOne({_id: id}, {$set: {events: events}}).then((user)=>{
+            User.updateOne({_id: user._id}, {$set: {events: events}}).then((user)=>{
                 if(!user){
                     res.status(400).send()
                 }
-                add_user = user 
+            }).catch((error)=>{
+                log(error)
+                res.status(500).send('Internal Server Error')
+            })
+
+            Event.findById(event_id).then((event) => {
+                if (!event) {
+                    res.status(404).send('Resource not found')
+                }
+                else {
+                    for (let i = 0; i < event.userRoles.length; i++) {
+                        if (event.userRoles[i].username === userRole.username) {
+                            res.status(400).send('Bad Request')
+                        }
+                    }
+        
+                    event.userRoles.push(userRole)
+                    event.save()
+                    res.send({event: event })
+                }
+            })
+            .catch((error) => {
+                log(error)
+                res.status(500).send('Internal server error')
+            })
+        }
+    })
+    .catch((error) => {
+        log(error)
+        res.status(400).send('Bad Request')
+    })
+})
+
+// Remove user from event
+router.route('/events/:event_id/deleteUser').delete((req, res) => {
+    const event_id = req.params.event_id
+
+    if (!ObjectID.isValid(event_id)) {
+        res.status(404).send('Resource not found')
+        return;
+    }
+
+    let delete_user = req.body.username;
+
+    User.find({ username: delete_user })
+    .then((userList) => {
+        let user = userList[0]
+        if (!user) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            let events = user.events
+            for(let i=0; i<events.length; i++){
+                if(events[i].toString() === event_id){
+                    events.splice(i, 1)
+                }
+            }
+
+            User.updateOne({_id: user._id}, {$set: {events: events}}).then((user)=>{
+                if(!user){
+                    res.status(400).send()
+                }
             }).catch((error)=>{
                 log(error)
                 res.status(500).send('Internal Server Error')
@@ -331,17 +388,32 @@ router.route('/:user_id/events/:event_id/addUser').post((req, res) => {
             res.status(404).send('Resource not found')
         }
         else {
-            event.userRoles.push(userRole)
-            event.save()
-            add_event = event
+            let users = event.userRoles
+            for (let i = 0; i < users.length; i++) {
+                if (users[i].username === delete_user) {
+                    users.splice(i, 1)
+                }
+            }
+
+            Event.updateOne({_id: event_id}, {$set: {userRoles: users}}).then((new_event)=>{
+                if(!new_event){
+                    res.status(400).send()
+                }
+                else {
+                    Event.findById(event_id).then((final_event) => {
+                        res.send({final_event})
+                    })
+                }
+            }).catch((error)=>{
+                log(error)
+                res.status(500).send('Internal Server Error')
+            })
         }
     })
     .catch((error) => {
         log(error)
         res.status(500).send('Internal server error')
     })
-
-    res.send({add_event, add_user})
 })
 
 
