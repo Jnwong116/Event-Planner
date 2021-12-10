@@ -8,6 +8,7 @@ import plus from './../../images/plus.png';
 import {getUser, addEvent, deleteEvent} from "../../actions/homePage"
 import {Input, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "reactstrap";
 import './style.css';
+import { logout, checkSession } from "../../actions/login";
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -15,7 +16,8 @@ class HomePage extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.props.history.push("/dashboard");
     }
-    
+   
+
     state = {
         user: "",
         eventsList: [],
@@ -41,6 +43,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         getUser(this, this.props);
+        checkSession(this);
     }
 
     render() {
@@ -58,6 +61,7 @@ class HomePage extends React.Component {
                             </DropdownToggle>
                             <DropdownMenu>
                             <DropdownItem onClick={()=>{app.setState({dashPage: 1})}}>Edit User</DropdownItem>
+                            <DropdownItem onClick={()=>{logout(this, app)}}>Logout</DropdownItem>
                             {/* <DropdownItem disabled>Action</DropdownItem>
                             <DropdownItem>Another Action</DropdownItem>
                             <DropdownItem divider />

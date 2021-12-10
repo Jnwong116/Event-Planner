@@ -12,6 +12,16 @@ router.route('/').get((req, res)=>{
         .then(users=>res.json(users))
         .catch(err=>res.status(400).json('Error: '+err))
 })
+router.route('/check-session').get((req, res)=>{
+    console.log(req.session.user)
+    
+
+    if (req.session.user) {
+        res.status(200).send({ currentUser: req.session.email });
+    } else {
+        res.status(401).send();
+    }
+})
 
 // Gets user by ID
 router.route('/:user_id').get((req, res)=>{
@@ -222,9 +232,11 @@ router.route('/login').post((req, res)=>{
             // Add the user's id to the session.
             // We can check later if this exists to ensure we are logged in.
             if(user.password === password){
+                
+                req.session.email = user.email;
+                req.session._id = user._id;
+                req.session.user = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
                 console.log(req.session)
-                req.session.user = user._id;
-                req.session.username = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
                 res.send({ currentUser: user })
             }else{
                 res.status(401).send()
@@ -239,13 +251,16 @@ router.route('/login').post((req, res)=>{
 // A route to logout a user
 router.route('/logout').get((req, res)=>{
     // Remove the session
+    console.log(req.session)
     req.session.destroy(error => {
         if (error) {
             res.status(500).send(error);
         } else {
+            console.log(req.session)
             res.send()
         }
     });
+    
 })
 
 // Get a specific event
@@ -401,19 +416,6 @@ router.route('/events/:event_id/deleteUser').delete((req, res) => {
     })
 })
 
-// router.route('/check-session').get((req, res)=>{
-//     if (env !== 'production' && USE_TEST_USER) { // test user on development environment.
-//         req.session.user = TEST_USER_ID;
-//         req.session.email = TEST_USER_EMAIL;
-//         res.send({ currentUser: TEST_USER_EMAIL })
-//         return;
-//     }
 
-//     if (req.session.user) {
-//         res.send({ currentUser: req.session.email });
-//     } else {
-//         res.status(401).send();
-//     }
-// })
 
 module.exports = router;

@@ -47,25 +47,27 @@ export const login =  (loginComp, app) => {
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = (app) => {
     const url = `${API_HOST}/users/check-session`;
-
-    if (!ENV.use_frontend_test_user) {
+    console.log(app)
+    //if (!ENV.use_frontend_test_user) {
         fetch(url)
         .then(res => {
             if (res.status === 200) {
+                console.log(app)
                 return res.json();
             }
         })
         .then(json => {
             if (json && json.currentUser) {
+                console.log(app)
                 app.setState({ currentUser: json.currentUser });
             }
         })
         .catch(error => {
             console.log(error);
         });
-    } else {
+    /*} else {
         app.setState({ currentUser: ENV.user });
-    }
+    }*/
     
 };
 
@@ -75,7 +77,8 @@ export const logout = (app) => {
 
     fetch(url)
         .then(res => {
-            app.setState({
+            console.log(app)
+            app.props.app.state.setState({
                 currentUser: null,
                 message: { type: "", body: "" }
             });

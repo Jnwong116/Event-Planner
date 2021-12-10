@@ -17,13 +17,19 @@ class Register extends React.Component{
     };
     handleChange = event => {
         const target = event.target;
+        console.log(target.name)
+        console.log(target.value)
         const value = target.value;
         const name = target.name;
         this.setState({
             [name]: value
         })
     };
-
+    componentDidMount(){
+        if(this.props.app.state.currentUser){
+            this.props.history.push("/dashboard")
+        }
+    }
     render() {
         const { app } = this.props
 
