@@ -418,6 +418,79 @@ router.route('/events/:event_id/deleteUser').delete((req, res) => {
     })
 })
 
+// Adds Task
+router.route('/events/:event_id/addTask').post((req, res) => {
+    const event_id = req.params.event_id
 
+    if (!ObjectID.isValid(event_id)) {
+        res.status(404).send('Resource not found')
+        return;
+    }
+    
+    let task = {
+        name: req.body.name,
+        status: req.body.status,
+        data: req.body.date
+    }
+
+    Event.findById(event_id).then((event) => {
+        if (!event) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            event.tasks.push(task)
+            event.save()
+            .catch((error) => {
+                log(error)
+                res.status(400).send('Bad Request')
+            })
+
+            res.send({event})
+        }
+    })
+})
+
+// Deletes a Task
+router.route('/events/:event_id/deleteTask/:task_id').delete((req, res) => {
+    const event_id = req.params.event_id
+    const task_id = req.params.task_id
+
+    if (!ObjectID.isValid(event_id)) {
+        res.status(404).send('Resource not found')
+        return;
+    }
+
+    Event.findById(event_id).then((event) => {
+        if (!event) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            let tasks = event.tasks;
+            for (let i = 0; i < tasks.length; i++) {
+                if (tasks[i]._id.toString() === task_id) {
+                    tasks.splice(i, 1)
+                }
+            }
+
+            Event.updateOne({_id: event_id}, {$set: {tasks: tasks}}).then((new_event)=>{
+                if(!new_event){
+                    res.status(400).send()
+                }
+                else {
+                    Event.findById(event_id).then((final_event) => {
+                        res.send({final_event})
+                    })
+                }
+            }).catch((error)=>{
+                log(error)
+                res.status(500).send('Internal Server Error')
+            })
+        }
+    })
+    .catch((error) => {
+        log(error)
+        res.status(500).send('Internal server error')
+    })
+})
 
 module.exports = router;

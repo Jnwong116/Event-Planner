@@ -23,7 +23,7 @@ export const getEventInfo = (eventPage, app) => {
             name: json.event.name,
             users: json.event.userRoles,
             messages: json.event.messages,
-            taks: json.event.tasks
+            tasks: json.event.tasks
         })
     })
     .catch((error) => {
@@ -104,4 +104,69 @@ export const deleteUser = (eventPage, app, username) => {
     })
 }
 
+export const addTask = (eventPage, app, name, status, date) => {
+    const eventID = app.state.curEvent
+    const url = `${API_HOST}/users/events/${eventID}/addTask`;
 
+    const task = {
+        name: name,
+        status: status,
+        date: date
+    }
+
+    const request = new Request(url, {
+        method: "post",
+        body: JSON.stringify(task),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    fetch(request)
+    .then((res) => {
+        if (res.status === 200) {
+            return res.json()
+        }
+        else {
+            alert('Could not add user')
+        }
+    })
+    .then((json) => {
+        eventPage.setState({
+            tasks: json.event.tasks
+        })
+    })
+    .catch((error) => {
+        log(error)
+    })
+}
+
+export const deleteTask = (eventPage, app, task_id) => {
+    const eventID = app.state.curEvent
+    const url = `${API_HOST}/users/events/${eventID}/deleteTask/${task_id}`;
+
+    const request = new Request(url, {
+        method: "delete",
+    })
+
+    fetch(request)
+    .then((res) => {
+        if (res.status === 200) {
+            return res.json()
+        }
+        
+        else {
+            alert('Could not delete task')
+        }
+    })
+    .then((json) => {
+        log(json)
+        eventPage.setState({
+            tasks: json.final_event.tasks
+        })
+    })
+    .catch((error) => {
+        log(error)
+    })
+}

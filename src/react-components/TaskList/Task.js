@@ -1,6 +1,7 @@
 import React from "react";
 import './style.css';
 import deleteIcon from '../../images/delete_icon.png';
+import { deleteTask } from "../../actions/eventPage";
 
 
 class Task extends React.Component {
@@ -9,17 +10,16 @@ class Task extends React.Component {
     }
     render() {
         const {
-            description, date, status, user, deleteTask
+            description, status, eventPage, app, id
         } = this.props;
-        console.log(this.props)
         //try to make progress user changeable
         return(
             <div className="task">
-                    <div className="name">
+                    {/* <div className="name">
                         {this.textFormat(user.name)}
-                    </div>
+                    </div> */}
                     <div>
-                        <img src={deleteIcon} alt="delete icon" className="deleteIcon" onClick={deleteTask(this.props.id)}></img>
+                        <img src={deleteIcon} alt="delete icon" className="deleteIcon" onClick={() => {deleteTask(eventPage, app, id)}}></img>
                     </div>
                     <p>
                         {description}
@@ -28,9 +28,9 @@ class Task extends React.Component {
                         {this.textFormat(status)}   
                     </p>
                     
-                    <span className="date">
+                    {/* <span className="date">
                         {this.textFormat(date)}
-                    </span>
+                    </span> */}
 
             </div>
         )

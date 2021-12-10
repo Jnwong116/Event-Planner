@@ -1,11 +1,12 @@
 import React from "react";
 import Task from "./Task";
 import './style.css';
+import AddTask from "./AddTask";
 class TaskList extends React.Component {
     
     render() {
-        const {
-            tasks, users, deleteTask
+        let {
+            popupOpen, tasks, users, eventPage, app
         } = this.props;
         return(
             <div className="userbox">
@@ -14,10 +15,12 @@ class TaskList extends React.Component {
                 <div className="messages">
                 {
                     tasks.map(function(item, i){
-                        return (<Task key={i} description={item.description} date={item.date} status={item.status} user={users[item.user]} deleteTask={deleteTask}/>)
+                        return (<Task key={i} id={item._id} description={item.name} status={item.status} eventPage={eventPage} app={app}/>)
                     })
                 }
-                </div>
+                </div>{ popupOpen ? 
+                <AddTask eventPage={eventPage} app={app}/> : (<div></div>)
+                }
             </div>
         )
     }

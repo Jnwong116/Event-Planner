@@ -1,34 +1,48 @@
 import React from "react";
+import { Input, Button } from "reactstrap";
+import { addTask } from "../../actions/eventPage";
+
 import './style.css';
 
 class AddTask extends React.Component {
+    state = {
+        name: "",
+        status: "",
+        date: ""
+    }
 
     insertTaskWrap = (insertUser)=>{
-        let tuser = document.getElementById('tuser').value
-        let tdesc = document.getElementById('tdesc').value
-        let tstatus = document.getElementById('tstatus').value
-        this.props.insertTask(tuser, tdesc, tstatus)
+        let tdesc = document.getElementById('name').value
+        let tstatus = document.getElementById('status').value
+        let tdate = document.getElementById('date').value
+        addTask(this.props.eventPage, this.props.app, tdesc, tstatus, tdate)
     }
     render() {
         const {
-            insertTask
+            eventPage, app
         } = this.props;
         return(
-            <div className="user">
-                <div>
-                    <label>Task User</label>
-                    <input id="tuser" type="text"></input>
+            <div className="card bg-dark text-white">
+                <div className="card-body bg-dark">
+                    <div className="user">
+                        <div>
+                            <label>Task Description</label>
+                            <Input placeholder="Task Description" variant="outlined" id="name"/>
+                        </div>
+                        <div>
+                            <label>Task Status</label>
+                            <Input placeholder="Status" variant="outlined" id="status"/>
+                        </div>
+                        <div>
+                            <label>Due Date</label>
+                            <Input placeholder="Date" variant="outlined" id="date"/>
+                        </div>
+                        <br/>
+                        <Button onClick={()=>this.insertTaskWrap()}>Add Task</Button>
+                    </div>
                 </div>
-                <div>
-                     <label>Task Description</label>
-                    <input id="tdesc" type="text"></input>
-                </div>
-                <div>
-                     <label>Task Status</label>
-                    <input id="tstatus" type="text"></input>
-                </div>
-                <button onClick={()=>this.insertTaskWrap(insertTask)}>Add Task</button>
             </div>
+           
         )
     }
 }

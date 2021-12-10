@@ -22,7 +22,7 @@
 }
 .task {
     border: 2px solid indigo;
-    background-color: #f1f1f1;
+    background-color: #2f2fa2;
     border-radius: 5px;
     padding: 20px;
     margin: 10px;
@@ -32,6 +32,7 @@
     margin-bottom: 20px;
     font-style: italic;
     text-align: left;
+    background-color: grey;
 }
 .date {
     float: right;
