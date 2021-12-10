@@ -469,7 +469,7 @@ router.route('/events/:event_id/addTask').post((req, res) => {
     let task = {
         name: req.body.name,
         status: req.body.status,
-        data: req.body.date
+        date: req.body.date
     }
 
     Event.findById(event_id).then((event) => {
