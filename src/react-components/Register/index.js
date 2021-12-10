@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import UserInfoForm from "../UserInfoForm";
 import {Button} from "reactstrap";
+
 import {addUser} from "../../actions/register"
 //import "./styles.css";
 // TODO: finish this.
@@ -26,7 +29,16 @@ class Register extends React.Component{
 
         return(
             <div className="card text-center card-main">
-            <div className="card-header header-bg">
+                <div className="card-header header-bg">
+                    <div className="profile">
+                        <Link  to={"./../login"}>
+                        <Button className="userProfile" onClick={()=>{app.setState({dashPage: 0})}}>
+                            <span >Login</span>
+                        </Button>
+                        </Link>
+                    </div>
+                </div>
+            <div className="card-body header-bg">
             <h1 className="Title">Register</h1>
                 <UserInfoForm
                 name = {this.state.name}
