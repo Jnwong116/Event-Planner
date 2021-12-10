@@ -33,7 +33,7 @@ class UserInfoForm extends React.Component {
                     id="outlined"
                     defaultValue={this.props.name}
                     margin="normal"
-                    onChange={this.props.handleChange}
+                    onChange={handleChange}
                 />
                 </div>
                 <br />
@@ -46,7 +46,7 @@ class UserInfoForm extends React.Component {
                     id="outlined"
                     defaultValue={this.props.userName}
                     margin="normal"
-                    onChange={this.props.handleChange}
+                    onChange={handleChange}
                 />
                 </div>
                 <br />
@@ -59,7 +59,7 @@ class UserInfoForm extends React.Component {
                     id="outlined"
                     defaultValue={this.props.email}
                     margin="normal"
-                    onChange={this.props.handleChange}
+                    onChange={handleChange}
                 />
                 </div>
                 <br />
@@ -72,7 +72,7 @@ class UserInfoForm extends React.Component {
                     id="outlined"
                     defaultValue=""
                     margin="normal"
-                    onChange={this.props.handleChange}
+                    onChange={handleChange}
                 />
                 </div>
                 <br />
@@ -85,7 +85,7 @@ class UserInfoForm extends React.Component {
                     id="outlined"
                     defaultValue=""
                     margin="normal"
-                    onChange={this.props.handleChange}
+                    onChange={handleChange}
                 />
                 </div>
                 <br />

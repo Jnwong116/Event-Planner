@@ -96,31 +96,27 @@ router.route('/add').post((req, res)=>{
 })
 
 // Edits user info
-router.route('/:user_id').patch((req, res) => {
+router.route('/:user_id').post((req, res) => {
     const id = req.params.user_id
     if (!ObjectID.isValid(id)) {
 		res.status(404).send('Resource not found')
 		return;  // so that we don't run the rest of the handler.
 	}
-    
-    const fieldsToUpdate = {}
-    req.body.map((change) => {
-		const propertyToChange = change.path.substr(1)
-		fieldsToUpdate[propertyToChange] = change.value
-	})
 
-    User.findOneAndUpdate({_id: id}, {$set: fieldsToUpdate}, {new: true, useFindAndModify: false})
-    .then((user) => {
+    User.findById(id).then((user) => {
         if (!user) {
             res.status(404).send('Resource not found')
         }
         else {
-            res.send(user)
+            user.username = req.body.username
+            user.password = req.body.password
+            user.name = req.body.name
+            user.email = req.body.email
+
+            user.save().then((result) => {
+                res.send({result})
+            })
         }
-    })
-    .catch((error) => {
-        log(error)
-        res.status(400).send('Bad Request')
     })
 
 })
