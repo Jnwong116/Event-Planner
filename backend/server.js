@@ -7,7 +7,14 @@ const env = process.env.NODE_ENV
 const app = express()
 const port = process.env.PORT || 5000
 
-app.use(cors())
+const options = {
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+}
+
+app.use(cors(options))
 app.use(express.json())
 
 const uri = process.env.ATLAS_URI
@@ -17,13 +24,20 @@ connection.once('open', ()=>{
     console.log("MongoDB database connection established successfully")
 })
 
-const eventsRouter = require('./routes/events')
 const usersRouter = require('./routes/users')
 //app.use('/events', eventsRouter)
 
 
 const session = require("express-session");
 const MongoStore = require('connect-mongo') // to store session information on the database in production
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    res.setHeader('Access-Control-Allow-Methods', 'POST', 'OPTIONS', 'PATCH', 'DELETE', 'GET')
+    next();
+});
+
 
 // Create a session and session cookie
 console.log(env)
@@ -43,12 +57,6 @@ app.use(
                                  }) : null
     })
 );
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-});
-
 
 app.use('/users', usersRouter)
 // Middleware for authentication of resources
@@ -71,6 +79,7 @@ app.use('/users', usersRouter)
         res.status(401).send("Unauthorized")
     }
 }*/
+
 app.listen(port, ()=>{
     console.log(`Server is running on port: ${port}`)
 })

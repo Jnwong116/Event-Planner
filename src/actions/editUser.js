@@ -8,18 +8,23 @@ export const editUser = (editUser, app) => {
 
     const user_id = app.state.currentUser._id;
     const url = `${API_HOST}/users/${user_id}`;
+
+    log(editUser.state)
     
-    const fields = [
-        {"op": "replace", "path": "/username", "value": editUser.state.userName},
-        {"op": "replace", "path": "/password", "value": editUser.state.password},
-        {"op": "replace", "path": "/name", "value": editUser.state.name},
-        {"op": "replace", "path": "/email", "value": editUser.state.email},
-    ]
+    const new_user = {
+        username: editUser.state.userName,
+        password: editUser.state.password,
+        name: editUser.state.name,
+        email: editUser.state.email
+    }
+
+    log(new_user)
 
     const request = new Request(url, {
-        method: "patch",
-        body: JSON.stringify(fields),
+        method: "post",
+        body: JSON.stringify(new_user),
         headers: {
+            Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json"
         }
     })
@@ -34,8 +39,7 @@ export const editUser = (editUser, app) => {
         }
     })
     .then((json) => {
-        app.setState({ currentUser: json })
-        window.location.href = "/dashboard"
+        app.setState({ currentUser: json.result })
         return;
     })
     .catch((error) => {
