@@ -34,7 +34,8 @@ class App extends React.Component {
     currentUser: null,
     dashPage: 0,
     curEvent: 0,
-    nextPage: ""
+    nextPage: "",
+    message: {}
   }
 
   render() {
@@ -56,6 +57,7 @@ class App extends React.Component {
                     
                 )}
             />
+            <Route render={() => <div>404 Not found</div>} />
             {/* <Route exact path='/' render={ props => 
                             (<Welcome {...props} app={this}/>)}/>
             <Route exact path='/Login' render={props => 

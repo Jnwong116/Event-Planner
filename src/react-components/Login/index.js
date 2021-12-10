@@ -62,7 +62,12 @@ class Login extends React.Component {
     return 0
   };
 
-  
+  componentDidMount(){
+    console.log(this.props)
+    if(this.props.app.state.currentUser){
+      this.props.history.push("/dashboard")
+    }
+  }
   render() {
     const { history, app } = this.props
     return (
