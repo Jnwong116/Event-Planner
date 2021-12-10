@@ -72,3 +72,11 @@ Returns the updated event
 
 DELETE /users/events/:event_id/deleteTask/:task_id deletes a task from the event based on the parameters
 returns the updated event
+
+GET /users/events/:event_id/messages gets all messages in an event
+returns a list of messages
+
+POST /users/events/:event_id/messages adds a message to the list of messages in the event
+Expects a message object with {sender, content, timestamp}
+returns a list of messages
+
