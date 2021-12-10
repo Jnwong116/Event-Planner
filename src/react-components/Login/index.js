@@ -126,12 +126,10 @@ class Login extends React.Component {
         >
           Sign In
         </Button>
-        <Link  to={"./../home"}>
-          <Button 
-            className="button-bg"
-            variant="contained"
-          > Register </Button>
-        </Link> 
+        <Button 
+          className="button-bg"
+          variant="contained"
+        > Register </Button>
         </form>
         </div>
       </div>
