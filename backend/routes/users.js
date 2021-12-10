@@ -12,16 +12,6 @@ router.route('/').get((req, res)=>{
         .then(users=>res.json(users))
         .catch(err=>res.status(400).json('Error: '+err))
 })
-router.route('/check-session').get((req, res)=>{
-    console.log(req.session.user)
-    
-
-    if (req.session.user) {
-        res.status(200).send({ currentUser: req.session.email });
-    } else {
-        res.status(401).send();
-    }
-})
 
 // Gets user by ID
 router.route('/:user_id').get((req, res)=>{
@@ -232,11 +222,9 @@ router.route('/login').post((req, res)=>{
             // Add the user's id to the session.
             // We can check later if this exists to ensure we are logged in.
             if(user.password === password){
-                
-                req.session.email = user.email;
-                req.session._id = user._id;
-                req.session.user = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
                 console.log(req.session)
+                req.session.user = user._id;
+                req.session.username = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
                 res.send({ currentUser: user })
             }else{
                 res.status(401).send()
@@ -251,16 +239,13 @@ router.route('/login').post((req, res)=>{
 // A route to logout a user
 router.route('/logout').get((req, res)=>{
     // Remove the session
-    console.log(req.session)
     req.session.destroy(error => {
         if (error) {
             res.status(500).send(error);
         } else {
-            console.log(req.session)
             res.send()
         }
     });
-    
 })
 
 // Get a specific event
@@ -416,6 +401,79 @@ router.route('/events/:event_id/deleteUser').delete((req, res) => {
     })
 })
 
+// Adds Task
+router.route('/events/:event_id/addTask').post((req, res) => {
+    const event_id = req.params.event_id
 
+    if (!ObjectID.isValid(event_id)) {
+        res.status(404).send('Resource not found')
+        return;
+    }
+    
+    let task = {
+        name: req.body.name,
+        status: req.body.status,
+        data: req.body.date
+    }
+
+    Event.findById(event_id).then((event) => {
+        if (!event) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            event.tasks.push(task)
+            event.save()
+            .catch((error) => {
+                log(error)
+                res.status(400).send('Bad Request')
+            })
+
+            res.send({event})
+        }
+    })
+})
+
+// Deletes a Task
+router.route('/events/:event_id/deleteTask/:task_id').delete((req, res) => {
+    const event_id = req.params.event_id
+    const task_id = req.params.task_id
+
+    if (!ObjectID.isValid(event_id)) {
+        res.status(404).send('Resource not found')
+        return;
+    }
+
+    Event.findById(event_id).then((event) => {
+        if (!event) {
+            res.status(404).send('Resource not found')
+        }
+        else {
+            let tasks = event.tasks;
+            for (let i = 0; i < tasks.length; i++) {
+                if (tasks[i]._id.toString() === task_id) {
+                    tasks.splice(i, 1)
+                }
+            }
+
+            Event.updateOne({_id: event_id}, {$set: {tasks: tasks}}).then((new_event)=>{
+                if(!new_event){
+                    res.status(400).send()
+                }
+                else {
+                    Event.findById(event_id).then((final_event) => {
+                        res.send({final_event})
+                    })
+                }
+            }).catch((error)=>{
+                log(error)
+                res.status(500).send('Internal Server Error')
+            })
+        }
+    })
+    .catch((error) => {
+        log(error)
+        res.status(500).send('Internal server error')
+    })
+})
 
 module.exports = router;

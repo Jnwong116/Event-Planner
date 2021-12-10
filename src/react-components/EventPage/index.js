@@ -40,19 +40,6 @@ class EventPage extends React.Component {
         this.getEventData();
     }
 
-    deleteTask = (id)=>{
-        let curTasks = this.state.tasks;
-        curTasks.splice(id, 1)
-
-        if(this.state.tasks.length>0){
-            this.setState({
-                tasks: curTasks
-            }, ()=>{
-                console.log(this.state)
-            })
-        }
-    }
-
     getEventData = ()=>{
         getEventInfo(this, this.props)
     }
@@ -96,7 +83,7 @@ class EventPage extends React.Component {
                         <div className="grid">
                             <h1 className="grid-header">You Are Viewing {this.state.name}</h1>
                             <UserList popupOpen={this.state.popupOpen} users={this.state.users} eventPage={this} app={app}/>
-                            <TaskList tasks={this.state.tasks} users={this.state.users} deleteTask={()=>this.deleteTask}/>
+                            <TaskList popupOpen={this.state.popupOpen} tasks={this.state.tasks} users={this.state.users} eventPage={this} app={app}/>
                             <LiveChat messages={this.state.messages}/>
                             {/* getEvents(this.state.user) */}
 

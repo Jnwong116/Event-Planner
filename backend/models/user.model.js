@@ -8,9 +8,11 @@ const messageSchema = new Schema({
 })
 
 const taskSchema = new Schema({
-    users: [mongoose.ObjectId],
+    name: {type: String},
+    // users: [mongoose.ObjectId],
     status: {type: String},
-    date: {type: Date, default: Date.now}
+    // date: {type: Date, default: Date.now}
+    date: {type: String}
 })
 
 const eventSchema = new Schema({
