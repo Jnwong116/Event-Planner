@@ -44,7 +44,7 @@ class App extends React.Component {
     console.log(this.state)
     return (
       <div class="row h-100 w-100">
-        <div class="col-sm-12 centered">
+        <div class="col-sm-12 ">
         <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }

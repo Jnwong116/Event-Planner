@@ -28,7 +28,9 @@ class EventPage extends React.Component {
         tasks:[],
         dropdownOpen: false,
         popupOpen: false,
-        curMessage:""
+        curMessage:"",
+        userRoles:[],
+        isAdmin: false
     }
 
     toggle() {
@@ -41,9 +43,22 @@ class EventPage extends React.Component {
         this.getEventData();
         
         setInterval(()=>{loadMessages(this, this.props)}, 2000);
+        if(this.checkRoles()){
+            this.setState({isAdmin: true})
+        }
 
     }
-    
+    checkRoles = ()=>{
+        console.log(this.props)
+        let found = false
+        for(let i=0; i<this.state.userRoles.length; i++){
+            console.log(this.state.userRoles[i])
+            if(this.props.app.state.currentUser.username == this.state.userRoles[i].username && this.state.userRoles[i].role=="Admin"){
+                found = true
+            }
+        }
+        return found
+    }
     handleChange = event => {
         const target = event.target;
         const value = target.value;
@@ -96,8 +111,9 @@ class EventPage extends React.Component {
                         </div> */}
                         <div className="grid">
                             <h1 className="grid-header">You Are Viewing {this.state.name}</h1>
+                            {this.state.isAdmin?
                             <UserList popupOpen={this.state.popupOpen} users={this.state.users} eventPage={this} app={app}/>
-                            <TaskList popupOpen={this.state.popupOpen} tasks={this.state.tasks} users={this.state.users} eventPage={this} app={app}/>
+                            :(<div></div>)}<TaskList popupOpen={this.state.popupOpen} tasks={this.state.tasks} users={this.state.users} eventPage={this} app={app}/>
                             <LiveChat sendMessage={this.sendMessage} handleChange={this.handleChange} messages={this.state.messages}/>
                             {/* getEvents(this.state.user) */}
 
