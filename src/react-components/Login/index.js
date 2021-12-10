@@ -126,10 +126,7 @@ class Login extends React.Component {
         >
           Sign In
         </Button>
-        <Button 
-          className="button-bg"
-          variant="contained"
-        > Register </Button>
+
         </form>
         </div>
       </div>
