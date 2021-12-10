@@ -78,10 +78,12 @@ export const logout = (app) => {
     fetch(url)
         .then(res => {
             console.log(app)
+            
             app.setState({
                 currentUser: null,
                 message: { type: "", body: "" }
             });
+            window.location.href="/login"
         })
         .catch(error => {
             console.log(error);

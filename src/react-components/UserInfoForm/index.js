@@ -70,6 +70,7 @@ class UserInfoForm extends React.Component {
                     name="password"
                     label="Password"
                     id="outlined"
+                    type="password"
                     defaultValue=""
                     margin="normal"
                     onChange={handleChange}
@@ -84,6 +85,7 @@ class UserInfoForm extends React.Component {
                     label="Confirm Password"
                     id="outlined"
                     defaultValue=""
+                    type="password"
                     margin="normal"
                     onChange={handleChange}
                 />

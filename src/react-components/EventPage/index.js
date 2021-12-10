@@ -5,7 +5,7 @@ import LiveChat from "./../LiveChat";
 import UserList from "../UserList";
 import TaskList from "../TaskList";
 import userProfileIcon from './../../images/user.png';
-import { getEventInfo } from "../../actions/eventPage";
+import { getEventInfo, loadMessages, sendMessage } from "../../actions/eventPage";
 import plus from './../../images/plus.png';
 
 import './style.css';
@@ -27,7 +27,8 @@ class EventPage extends React.Component {
         messages:[],
         tasks:[],
         dropdownOpen: false,
-        popupOpen: false
+        popupOpen: false,
+        curMessage:""
     }
 
     toggle() {
@@ -38,8 +39,21 @@ class EventPage extends React.Component {
 
     componentDidMount(){
         this.getEventData();
-    }
+        
+        setInterval(()=>{loadMessages(this, this.props)}, 2000);
 
+    }
+    
+    handleChange = event => {
+        const target = event.target;
+        const value = target.value;
+        this.setState({
+            curMessage: value
+        })
+    }
+    sendMessage = ()=>{
+        sendMessage(this, this.props)
+    }
     getEventData = ()=>{
         getEventInfo(this, this.props)
     }
@@ -84,7 +98,7 @@ class EventPage extends React.Component {
                             <h1 className="grid-header">You Are Viewing {this.state.name}</h1>
                             <UserList popupOpen={this.state.popupOpen} users={this.state.users} eventPage={this} app={app}/>
                             <TaskList popupOpen={this.state.popupOpen} tasks={this.state.tasks} users={this.state.users} eventPage={this} app={app}/>
-                            <LiveChat messages={this.state.messages}/>
+                            <LiveChat sendMessage={this.sendMessage} handleChange={this.handleChange} messages={this.state.messages}/>
                             {/* getEvents(this.state.user) */}
 
                         </div>
