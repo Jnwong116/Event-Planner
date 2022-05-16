@@ -51,6 +51,7 @@ class Register extends React.Component{
                 userName= {this.state.userName}
                 email= {this.state.email}
                 handleChange= {this.handleChange}
+                parent={this}
                 />
                 <Button
                     onClick={() => {

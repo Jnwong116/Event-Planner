@@ -1,6 +1,5 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
-import { Button, Input, InputGroup } from "reactstrap"
+import { Input} from "reactstrap"
 
 // import DateMomentUtils from '@date-io/moment';
 // import DateFnsUtils from '@date-io/date-fns';
@@ -14,12 +13,30 @@ import { Button, Input, InputGroup } from "reactstrap"
 import './style.css';
 
 class UserInfoForm extends React.Component {
-  render() {
+  
+    handleChange = () => {
+        let username = document.getElementById('username').value
+        let name = document.getElementById('name').value
+        let email = document.getElementById('email').value
+        let password = document.getElementById('password').value
+        let confirmPassword = document.getElementById('confirmPassword').value
+        
+        this.props.parent.setState({
+            userName: username,
+            password: password,
+            confirmPassword: confirmPassword, 
+            email: email, 
+            name: name
+        })
+    }
+  
+    render() {
         const {
             name,
             userName,
             email,
-            handleChange
+            handleChange,
+            parent
         } = this.props;
 
         return (
@@ -30,10 +47,10 @@ class UserInfoForm extends React.Component {
                     placeholder="Name"
                     name="name"
                     label="First and Last Name"
-                    id="outlined"
+                    id="name"
                     defaultValue={this.props.name}
                     margin="normal"
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                 />
                 </div>
                 <br />
@@ -43,10 +60,10 @@ class UserInfoForm extends React.Component {
                     name="userName"
                     placeholder="Username"
                     label="Username"
-                    id="outlined"
+                    id="username"
                     defaultValue={this.props.userName}
                     margin="normal"
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                 />
                 </div>
                 <br />
@@ -56,10 +73,10 @@ class UserInfoForm extends React.Component {
                     placeholder="Email"
                     name="email"
                     label="Email"
-                    id="outlined"
+                    id="email"
                     defaultValue={this.props.email}
                     margin="normal"
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                 />
                 </div>
                 <br />
@@ -69,11 +86,11 @@ class UserInfoForm extends React.Component {
                     placeholder="Password"
                     name="password"
                     label="Password"
-                    id="outlined"
+                    id="password"
                     type="password"
                     defaultValue=""
                     margin="normal"
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                 />
                 </div>
                 <br />
@@ -83,11 +100,11 @@ class UserInfoForm extends React.Component {
                     placeholder="Confirm Password"
                     name="confirmPassword"
                     label="Confirm Password"
-                    id="outlined"
+                    id="confirmPassword"
                     defaultValue=""
                     type="password"
                     margin="normal"
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                 />
                 </div>
                 <br />

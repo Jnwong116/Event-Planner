@@ -23,6 +23,8 @@ class EditProfile extends React.Component{
         this.setState({
             [name]: value
         })
+
+        console.log('changed')
     }
 
     componentDidMount() {
@@ -51,6 +53,7 @@ class EditProfile extends React.Component{
                             email = {this.state.email}
                             userName = {this.state.userName}
                             handleInputChange = {this.handleInputChange}
+                            parent = {this}
                         />
                         <Button
                             onClick={() => {
